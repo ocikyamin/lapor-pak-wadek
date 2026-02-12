@@ -50,7 +50,7 @@ Akses demo aplikasi di: [https://sigap.wuaze.com/](https://sigap.wuaze.com/)
 1. **Clone Repositori**
    ```bash
    git clone https://github.com/ocikyamin/lapor-pak-wadek.git
-   cd newapp-lapor-pak-wadek
+   cd lapor-pak-wadek
    ```
 
 2. **Instal Dependensi**
