@@ -1,0 +1,150 @@
+/* 
+    Developer: Abdul Yamin, S.Pd., M.Kom
+    GitHub: https://github.com/ocikyamin
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+* {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background-color: #f8fafc;
+}
+
+/* Sidebar Styling */
+#sidebar {
+    background: #ffffff;
+    border-right: 1px solid rgba(226, 232, 240, 0.8);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-header {
+    background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(248, 250, 252, 0.5));
+}
+
+/* Navigation Group Header */
+.nav-group-header {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #475569;
+    /* Darkened from #94a3b8 (Slate-600) */
+    padding: 1.5rem 1.75rem 0.5rem 1.75rem;
+    opacity: 0.8;
+}
+
+/* Enhanced Nav Item */
+.nav-item {
+    position: relative;
+    margin: 0.25rem 0.875rem;
+    color: #334155;
+    /* Darkened from #64748b (Slate-700) */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    /* Increased from 500 */
+}
+
+.nav-item:hover {
+    color: #0d9488;
+    background-color: rgba(13, 148, 136, 0.05);
+}
+
+.nav-item.active {
+    color: #ffffff !important;
+    background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%) !important;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(13, 148, 136, 0.25);
+}
+
+.nav-item.active .material-icons {
+    color: #ffffff !important;
+}
+
+.nav-item .material-icons {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+}
+
+.nav-item:hover .material-icons {
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* Indicator Pill */
+.nav-item.active::after {
+    display: none;
+}
+
+/* Badge Styling */
+.badge-counter {
+    background: #0d9488;
+    color: #ffffff;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 800;
+    border-radius: 99px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 2px 4px rgba(13, 148, 136, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Badge behavior when menu is active (White on Teal background) */
+.nav-item.active .badge-counter {
+    background: #ffffff !important;
+    color: #0d9488 !important;
+    border-color: #0d9488;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Section Styling */
+.profile-card {
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+}
+
+/* Smooth Transitions */
+.sidebar-link-transition {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Glass Header logic */
+.backdrop-blur-lg {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+/* Scrollbar Customization */
+#sidebar nav::-webkit-scrollbar {
+    width: 4px;
+}
+
+#sidebar nav::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#sidebar nav::-webkit-scrollbar-thumb {
+    background: #e2e8f0;
+    border-radius: 10px;
+}
+
+#sidebar nav:hover::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+}

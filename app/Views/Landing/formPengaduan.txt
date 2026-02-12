@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Lapor Pak WD III - Refined Complaint Form</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0D9488",
+                        "primary-hover": "#0F766E",
+                        "primary-light": "#CCFBF1",
+                        "surface-bg": "#F8FAFC",
+                        "card-bg": "#FFFFFF",
+                        "border-light": "#E2E8F0",
+                        "text-main": "#1E293B",
+                        "text-muted": "#64748B",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        "glass": "0 4px 30px rgba(0, 0, 0, 0.1)",
+                        "soft": "0 10px 40px -10px rgba(0,0,0,0.05)",
+                    }
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        .gradient-bg {
+    /* background: linear-gradient(135deg, #059669 0%, #10b981 50%, #d97706 100%); */
+    background: linear-gradient(135deg, #f59e0b 0%, #eab308 25%, #84cc16 50%, #22c55e 75%, #f59e0b 100%);
+}
+        @layer utilities {
+            .glass-header {
+                @apply bg-primary shadow-lg border-b border-teal-700;
+            }
+            .form-input-base {
+                @apply block w-full rounded-lg border-border-light bg-white py-3 px-4 text-text-main placeholder-text-muted focus:border-primary focus:ring-primary focus:ring-1 transition-all duration-200 shadow-sm text-sm sm:text-base;
+            }
+            .form-input-with-icon {
+                @apply pl-12;
+            }
+            .form-select-base {
+                @apply block w-full rounded-lg border-border-light bg-white py-3 pl-4 pr-10 text-text-main focus:border-primary focus:ring-primary focus:ring-1 transition-all duration-200 shadow-sm text-sm sm:text-base appearance-none;
+            }
+            .radio-card-active {
+                @apply border-primary bg-primary-light/10 ring-1 ring-primary;
+            }
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1; 
+            }
+            ::-webkit-scrollbar-thumb {
+                background: #cbd5e1; 
+                border-radius: 4px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8; 
+            }
+            .input-error {
+                @apply border-red-500 focus:border-red-500 focus:ring-red-500;
+            }
+            .input-success {
+                @apply border-green-500 focus:border-green-500 focus:ring-green-500;
+            }
+            .error-message {
+                @apply text-red-500 text-xs font-medium mt-1 flex items-center gap-1;
+            }
+            @keyframes slide-in {
+                from {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            @keyframes slide-out {
+                from {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateX(400px);
+                    opacity: 0;
+                }
+            }
+            .animate-slide-in {
+                animation: slide-in 0.3s ease-out;
+            }
+            .animate-slide-out {
+                animation: slide-out 0.3s ease-out forwards;
+            }
+            @keyframes spin {
+                from {
+                    transform: rotate(0deg);
+                }
+                to {
+                    transform: rotate(360deg);
+                }
+            }
+            .animate-spin {
+                animation: spin 1s linear infinite;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notiflix@3.2.7/dist/notiflix-3.2.7.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/notiflix@3.2.7/dist/notiflix-aio-3.2.7.min.js"></script>
+</head>
+
+<body class="font-display bg-slate-50 text-text-main min-h-screen flex flex-col relative overflow-x-hidden">
+    <!-- Sophisticated Background Elements -->
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div class="absolute -top-[10%] -left-[10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[120px]"></div>
+        <div class="absolute top-[20%] -right-[5%] w-[30%] h-[30%] rounded-full bg-emerald-400/10 blur-[100px]"></div>
+        <div class="absolute -bottom-[10%] left-[20%] w-[50%] h-[50%] rounded-full bg-teal-500/5 blur-[150px]"></div>
+    </div>
+
+    <!-- Header / Top Bar (Premium Gradient) -->
+    <div class="relative z-50 w-full pt-6 px-4 sm:px-6">
+        <div
+            class="max-w-4xl mx-auto flex justify-between items-center bg-gradient-to-r from-primary via-teal-600 to-primary backdrop-blur-md border border-teal-700/30 rounded-2xl px-6 py-4 shadow-[0_8px_30px_rgba(13,148,136,0.25)] hover:shadow-[0_12px_40px_rgba(13,148,136,0.35)] transition-all duration-300">
+            <div class="flex items-center gap-4">
+                <img src="<?= base_url('logo/ftik.png') ?>" alt="FTIK"
+                    class="w-8 h-8 object-contain drop-shadow-md hover:scale-110 transition-transform duration-300">
+                <div class="h-8 w-[2px] bg-white/30"></div>
+                <img src="<?= base_url('logo/logos.png') ?>" alt="SIGAP"
+                    class="h-7 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300">
+            </div>
+            <a href="<?= base_url() ?>"
+                class="text-xs font-bold text-white/90 hover:text-white transition-all flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40">
+                <span class="material-symbols-outlined text-base">arrow_back</span>
+                Kembali
+            </a>
+        </div>
+    </div>
+
+    <main class="relative z-10 flex-grow py-10 sm:py-16 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto">
+            <!-- Hero Title Area -->
+            <div class="text-center space-y-6 mb-12 animate-fade-in-up">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-700 text-[10px] font-bold uppercase tracking-widest">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Saluran Aspirasi Aman
+                </div>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.1]">
+                    Suarakan <span class="text-gradient">Aspirasi & Laporan</span> <br />
+                    Anda dengan <span class="relative">Aman<span
+                            class="absolute bottom-0 left-0 w-full h-2 bg-primary/10 -z-10 rounded-full"></span></span>
+                </h2>
+                <p class="text-sm sm:text-base text-slate-500 max-w-2xl mx-auto leading-relaxed font-medium">
+                    Lapor Pak Wadek 3 hadir sebagai saluran resmi bagi Civitas Akademika FTIK UIN Bukittinggi maupun
+                    masyarakat umum.
+                </p>
+            </div>
+
+
+
+            <!-- Main Form Card (Glass) -->
+            <div
+                class="bg-white/80 backdrop-blur-xl rounded-3xl shadow-glass border border-white/40 overflow-hidden relative">
+                <div class="h-1.5 w-full bg-gradient-to-r from-primary via-emerald-400 to-teal-500"></div>
+
+                <form class="p-5 sm:p-8 md:p-10 space-y-8" id="form-pengaduan">
+
+                    <!-- SECTION 1: JENIS PELAPORAN -->
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                            </div>
+                            <label class="text-sm font-bold text-slate-800 uppercase tracking-widest">Metode
+                                Pelaporan</label>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="group cursor-pointer relative">
+                                <input checked="" class="peer sr-only" name="pelapor_identitas" type="radio"
+                                    value="anonim" id="pelapor_identitas_anonim" />
+                                <div
+                                    class="p-5 rounded-2xl border-2 border-slate-100 bg-white group-hover:bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-primary/[0.02] peer-checked:ring-4 peer-checked:ring-primary/10 flex flex-col gap-4">
+                                    <div class="flex justify-between items-start w-full">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center peer-checked:bg-primary peer-checked:text-white transition-all overflow-hidden relative">
+                                            <span class="material-symbols-outlined text-[28px]">visibility_off</span>
+                                            <div
+                                                class="absolute bottom-0 right-0 w-3 h-3 bg-red-400 border-2 border-white rounded-full">
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="w-5 h-5 rounded-full border-2 border-slate-200 flex items-center justify-center peer-checked:border-primary peer-checked:after:content-[''] peer-checked:after:w-2.5 peer-checked:after:h-2.5 peer-checked:after:bg-primary peer-checked:after:rounded-full transition-all">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900">Anonim (Sangat Rahasia)</h4>
+                                        <p class="text-xs text-slate-500 mt-1 font-medium">Identitas Anda tidak akan
+                                            terekam dalam database sistem kami.</p>
+                                    </div>
+                                </div>
+                            </label>
+
+                            <label class="group cursor-pointer relative">
+                                <input class="peer sr-only" name="pelapor_identitas" type="radio" value="identitas"
+                                    id="pelapor_identitas_named" />
+                                <div
+                                    class="p-5 rounded-2xl border-2 border-slate-100 bg-white group-hover:bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-primary/[0.02] peer-checked:ring-4 peer-checked:ring-primary/10 flex flex-col gap-4">
+                                    <div class="flex justify-between items-start w-full">
+                                        <div
+                                            class="w-12 h-12 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center peer-checked:bg-primary peer-checked:text-white transition-all overflow-hidden relative">
+                                            <span class="material-symbols-outlined text-[28px]">person</span>
+                                        </div>
+                                        <div
+                                            class="w-5 h-5 rounded-full border-2 border-slate-200 flex items-center justify-center peer-checked:border-primary peer-checked:after:content-[''] peer-checked:after:w-2.5 peer-checked:after:h-2.5 peer-checked:after:bg-primary peer-checked:after:rounded-full transition-all">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900">Gunakan Identitas</h4>
+                                        <p class="text-xs text-slate-500 mt-1 font-medium">Memudahkan petugas untuk
+                                            melakukan verifikasi & tindak lanjut cepat.</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- ============================================
+     SECTION 2: INFO PRIVASI ANONIM
+     Menampilkan informasi privasi ketika user memilih pengaduan anonim
+     ============================================ -->
+                    <!--opsi Anonim -->
+
+                    <div id="anon-info"
+                        class="flex items-start gap-4 p-5 bg-blue-50/50 border border-blue-100 rounded-2xl animate-fade-in">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined">verified</span>
+                        </div>
+                        <div class="space-y-1">
+                            <h5 class="text-sm font-bold text-slate-900">Perlindungan Anonimitas Aktif</h5>
+                            <p class="text-xs text-slate-600 leading-relaxed font-medium">Sistem kami menggunakan
+                                enkripsi end-to-end. Data perangkat atau IP Anda tidak akan disimpan dalam laporan ini
+                                demi menjaga kerahasiaan penuh.</p>
+                        </div>
+                    </div>
+
+                    <!-- ============================================
+     SECTION 3: IDENTITAS PERLAPOR
+     Form untuk input nama dan kontak (Email/WhatsApp) - hanya tampil jika user memilih "Dengan Identitas"
+     ============================================ -->
+                    <!--  by identitas-->
+
+                    <div id="identity-form"
+                        class="p-6 rounded-2xl bg-white border border-slate-100 shadow-sm space-y-6 hidden animate-slide-in">
+                        <div class="flex items-center gap-2 border-b border-slate-50 pb-4">
+                            <span class="material-symbols-outlined text-primary text-[20px]">assignment_ind</span>
+                            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-widest">Identitas Perlapor
+                            </h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Nama
+                                    Lengkap *</label>
+                                <div class="space-y-2">
+                                    <div class="flex items-center gap-3">
+                                        <div
+                                            class="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400">
+                                            <span class="material-symbols-outlined text-[20px]">person</span>
+                                        </div>
+                                        <input class="form-input-base flex-1" placeholder="Masukkan nama Anda"
+                                            type="text" name="pelapor_nama" id="pelapor_nama" />
+                                    </div>
+                                    <!-- Validation Message Container -->
+                                    <div id="pelapor_nama_error" class="hidden mt-1">
+                                        <div class="error-message animate-slide-in">
+                                            <span class="material-symbols-outlined text-[14px]">error</span>
+                                            <span id="pelapor_nama_error_text">Nama lengkap wajib diisi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-2">
+                                <label
+                                    class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Kontak
+                                    Aktif</label>
+                                <div class="flex items-center gap-3">
+                                    <div
+                                        class="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400">
+                                        <span class="material-symbols-outlined text-[20px]">contact_mail</span>
+                                    </div>
+                                    <input class="form-input-base flex-1" placeholder="WhatsApp atau Email" type="text"
+                                        name="pelapor_kontak" id="pelapor_kontak" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- End Info Perlapor -->
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                        <!-- SECTION 4: KATEGORI PELANGGARAN -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[18px]">category</span>
+                                </div>
+                                <label class="text-sm font-bold text-slate-800 uppercase tracking-widest">Kategori
+                                    Pelanggaran</label>
+                            </div>
+
+                            <div class="relative group" id="kategori-select-wrapper">
+                                <select class="form-select-base pr-12 focus:ring-4 focus:ring-primary/10"
+                                    id="kategori_select" name="kategori_id" data-field-text="kategori_text">
+                                    <option disabled="" selected="">Pilih kategori masalah...</option>
+                                    <?php foreach ($kategori as $kat): ?>
+                                        <option value="<?= $kat['id']; ?>"><?= esc($kat['kategori']); ?></option>
+                                    <?php endforeach; ?>
+                                    <option value="Lainnya">Lainnya...</option>
+                                </select>
+
+                            </div>
+
+                            <div id="kategori-custom-wrapper" class="space-y-3 hidden animate-slide-in">
+                                <input
+                                    class="form-input-base border-primary shadow-[0_0_15px_-3px_rgba(13,148,136,0.2)]"
+                                    id="kategori_custom_input" placeholder="Tuliskan kategori baru..." type="text" />
+                                <div class="flex gap-2 justify-end">
+                                    <button type="button"
+                                        class="text-[11px] font-bold text-slate-500 hover:text-slate-700 flex items-center gap-1 transition-all px-4 py-2 border border-slate-200 rounded-xl hover:bg-slate-50"
+                                        id="btn-batal-kategori">
+                                        <span class="material-symbols-outlined text-[16px]">close</span> Batal
+                                    </button>
+                                    <button type="button"
+                                        class="text-[11px] font-bold text-white flex items-center gap-1 transition-all px-4 py-2 bg-primary hover:bg-primary-hover rounded-xl shadow-sm hover:shadow-md"
+                                        id="btn-tambah-kategori">
+                                        <span class="material-symbols-outlined text-[16px]">add_task</span> Tambahkan
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-start px-1" id="kategori-button-wrapper">
+                                <button type="button"
+                                    class="text-[11px] font-bold text-primary hover:underline flex items-center gap-1.5 transition-all"
+                                    id="btn-tambah-kategori-alt">
+                                    <span class="material-symbols-outlined text-[14px]">add_circle</span> Tambah
+                                    Kategori Baru
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- SECTION 5: PIHAK YANG DILAPORKAN -->
+                        <div class="space-y-4">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[18px]">group_problem</span>
+                                </div>
+                                <label class="text-sm font-bold text-slate-800 uppercase tracking-widest">Pihak
+                                    Terlapor</label>
+                            </div>
+
+                            <div class="relative group">
+                                <select class="form-select-base pr-12 focus:ring-4 focus:ring-primary/10"
+                                    name="terlapor_jenis" id="terlapor_jenis">
+                                    <option disabled="" selected="">Pilih pihak yang dilaporkan...</option>
+                                    <option value="Mahasiswa">Mahasiswa</option>
+                                    <option value="Dosen">Dosen</option>
+                                    <option value="Tendik">Tenaga Kependidikan</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- END PIHAK YANG DILAPORKAN -->
+
+                    <!-- SECTION 6: DETAIL TERLAPOR (DYNAMIC) -->
+                    <div id="detail-mahasiswa"
+                        class="p-6 rounded-2xl bg-slate-50/50 border border-slate-100 space-y-6 hidden animate-slide-in">
+                        <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                            <span class="material-symbols-outlined text-primary text-[20px]">school</span>
+                            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-widest">Detail Terlapor
+                                (Mahasiswa)</h3>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="space-y-2">
+                                <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">NIM
+                                    (Opsional)</label>
+                                <input class="form-input-base focus:ring-4 focus:ring-primary/10"
+                                    placeholder="Contoh: 12345678" type="text" name="terlapor_nim" id="terlapor_nim" />
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Nama
+                                    Lengkap *</label>
+                                <input class="form-input-base focus:ring-4 focus:ring-primary/10"
+                                    placeholder="Siapa yang dilaporkan?" type="text" name="terlapor_nama_mahasiswa"
+                                    id="terlapor_nama_mahasiswa" />
+                            </div>
+                            <div class="md:col-span-2 space-y-2">
+                                <label
+                                    class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Program
+                                    Studi (Opsional)</label>
+                                <select class="form-select-base focus:ring-4 focus:ring-primary/10"
+                                    name="terlapor_prodi_id" id="terlapor_prodi_id">
+                                    <option disabled="" selected="">Pilih Program Studi Terlapor...</option>
+                                    <?php foreach ($prodi as $prd): ?>
+                                        <option value="<?= $prd['id']; ?>"><?= esc($prd['nm_prodi']); ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="detail-dosen"
+                        class="p-6 rounded-2xl bg-slate-50/50 border border-slate-100 space-y-6 hidden animate-slide-in">
+                        <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                            <span class="material-symbols-outlined text-primary text-[20px]">badge</span>
+                            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-widest">Detail Terlapor
+                                (Dosen)</h3>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Nama
+                                Lengkap *</label>
+                            <input class="form-input-base focus:ring-4 focus:ring-primary/10"
+                                placeholder="Nama dosen yang dilaporkan" type="text" name="terlapor_nama_dosen"
+                                id="terlapor_nama_dosen" />
+                        </div>
+                    </div>
+
+                    <div id="detail-tendik"
+                        class="p-6 rounded-2xl bg-slate-50/50 border border-slate-100 space-y-6 hidden animate-slide-in">
+                        <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                            <span class="material-symbols-outlined text-primary text-[20px]">engineering</span>
+                            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-widest">Detail Terlapor
+                                (Tendik)</h3>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Nama
+                                Lengkap *</label>
+                            <input class="form-input-base focus:ring-4 focus:ring-primary/10"
+                                placeholder="Nama tenaga kependidikan" type="text" name="terlapor_nama_tendik"
+                                id="terlapor_nama_tendik" />
+                        </div>
+                    </div>
+
+                    <div id="detail-lainnya"
+                        class="p-6 rounded-2xl bg-slate-50/50 border border-slate-100 space-y-6 hidden animate-slide-in">
+                        <div class="flex items-center gap-2 border-b border-slate-100 pb-4">
+                            <span class="material-symbols-outlined text-primary text-[20px]">contact_support</span>
+                            <h3 class="text-sm font-bold text-slate-800 uppercase tracking-widest">Detail Terlapor
+                                (Lainnya)</h3>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Nama
+                                Lengkap *</label>
+                            <input class="form-input-base focus:ring-4 focus:ring-primary/10"
+                                placeholder="Nama pihak terkait" type="text" name="terlapor_nama_lainnya"
+                                id="terlapor_nama_lainnya" />
+                        </div>
+                    </div>
+
+                    <!-- End Detail Terlapor -->
+
+                    <!-- Hidden fields untuk backend -->
+                    <input type="hidden" name="terlapor_nama" id="terlapor_nama_hidden" />
+
+                    <!-- SECTION 7: KRONOLOGI KEJADIAN -->
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-[18px]">history_edu</span>
+                                </div>
+                                <label class="text-sm font-bold text-slate-800 uppercase tracking-widest">Kronologi
+                                    Kejadian</label>
+                            </div>
+                            <span
+                                class="text-[10px] font-black bg-slate-100 text-slate-400 px-2 py-1 rounded-md tracking-tighter uppercase">Detail
+                                & Obyektif</span>
+                        </div>
+                        <textarea class="form-input-base resize-y min-h-[120px] focus:ring-4 focus:ring-primary/10"
+                            placeholder="Ceritakan kronologi kejadian secara detail, obyektif dan jelas..." rows="4"
+                            name="kejadian_deskripsi" id="kejadian_deskripsi"></textarea>
+                        <div class="flex items-start gap-2 p-3 bg-amber-50/50 rounded-xl border border-amber-100">
+                            <span class="material-symbols-outlined text-amber-500 text-sm mt-0.5">verified</span>
+                            <p class="text-[11px] text-amber-800 font-medium">Mohon gunakan bahasa yang sopan. Sertakan
+                                informasi <span class="font-bold underline">Apa, Siapa, Kapan, & Dimana</span> untuk
+                                memudahkan verifikasi.</p>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 8: WAKTU & LOKASI -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="space-y-2">
+                            <label
+                                class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider pl-1">Tanggal
+                                Kejadian</label>
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+                                    <span class="material-symbols-outlined text-[20px]">calendar_today</span>
+                                </div>
+                                <input class="form-input-base flex-1 focus:ring-4 focus:ring-primary/10" type="date"
+                                    name="kejadian_tgl" id="kejadian_tgl" />
+                            </div>
+                            <!-- Validation Message Container -->
+                            <div id="kejadian_tgl_error" class="hidden mt-1">
+                                <div class="error-message animate-slide-in">
+                                    <span class="material-symbols-outlined text-[14px]">error</span>
+                                    <span id="kejadian_tgl_error_text">Tanggal kejadian wajib diisi</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label
+                                class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider pl-1">Lokasi
+                                Kejadian</label>
+                            <div class="flex items-center gap-3">
+                                <div
+                                    class="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+                                    <span class="material-symbols-outlined text-[20px]">location_on</span>
+                                </div>
+                                <input class="form-input-base flex-1 focus:ring-4 focus:ring-primary/10"
+                                    placeholder="Contoh: Gedung A, Lantai 2" type="text" name="kejadian_lokasi"
+                                    id="kejadian_lokasi" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================
+     SECTION 9: BUKTI PENDUKUNG
+     File upload area untuk menambahkan bukti/lampiran (PNG, JPG, PDF max 10MB)
+     ============================================ -->
+                    <!-- SECTION 9: BUKTI PENDUKUNG -->
+                    <div class="space-y-6 pt-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[18px]">attachment</span>
+                            </div>
+                            <label class="text-sm font-bold text-slate-800 uppercase tracking-widest">Bukti Pendukung
+                                <span
+                                    class="text-[10px] lowercase font-medium text-slate-400 underline decoration-dotted decoration-primary">(Opsional)</span></label>
+                        </div>
+
+                        <!-- Opsi Tipe Bukti -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <label class="cursor-pointer group">
+                                <input type="radio" name="bukti_tipe" value="file" checked class="peer sr-only"
+                                    id="bukti_tipe_file" />
+                                <div
+                                    class="p-4 rounded-2xl border-2 border-slate-100 bg-white group-hover:bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-primary/[0.02] flex items-center gap-3 shadow-sm peer-checked:shadow-none">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center peer-checked:bg-primary peer-checked:text-white transition-all">
+                                        <span class="material-symbols-outlined text-[22px]">upload_file</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-600 peer-checked:text-primary">Unggah
+                                        File</span>
+                                </div>
+                            </label>
+                            <label class="cursor-pointer group">
+                                <input type="radio" name="bukti_tipe" value="sosmed" class="peer sr-only"
+                                    id="bukti_tipe_sosmed" />
+                                <div
+                                    class="p-4 rounded-2xl border-2 border-slate-100 bg-white group-hover:bg-slate-50 transition-all peer-checked:border-primary peer-checked:bg-primary/[0.02] flex items-center gap-3 shadow-sm peer-checked:shadow-none">
+                                    <div
+                                        class="w-10 h-10 rounded-xl bg-slate-100 text-slate-400 flex items-center justify-center peer-checked:bg-primary peer-checked:text-white transition-all">
+                                        <span class="material-symbols-outlined text-[22px]">link</span>
+                                    </div>
+                                    <span class="text-xs font-bold text-slate-600 peer-checked:text-primary">Link
+                                        Sosmed</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <!-- UPLOAD FILE SECTION -->
+                        <div id="bukti-file-section" class="w-full animate-fade-in">
+                            <label
+                                class="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-slate-200 rounded-3xl cursor-pointer bg-slate-50/50 hover:bg-slate-100 hover:border-primary/50 transition-all group overflow-hidden relative"
+                                for="lampiran">
+                                <div class="flex flex-col items-center justify-center text-center px-4 relative z-10">
+                                    <div
+                                        class="mb-3 p-4 rounded-2xl bg-white shadow-soft text-slate-300 group-hover:text-primary group-hover:scale-110 transition-all duration-300">
+                                        <span class="material-symbols-outlined text-4xl">cloud_upload</span>
+                                    </div>
+                                    <p class="text-sm text-slate-600 font-bold tracking-tight">Klik untuk unggah <span
+                                            class="text-slate-400 font-medium">atau tarik file ke sini</span></p>
+                                    <p class="text-[10px] text-slate-400 mt-2 font-medium uppercase tracking-widest">
+                                        PNG, JPG, PDF • Maksimal 10MB</p>
+                                </div>
+                                <input class="hidden" id="lampiran" type="file" name="lampiran" />
+                            </label>
+
+                            <div id="file-preview-container"
+                                class="hidden mt-4 p-5 bg-white border border-slate-100 rounded-2xl shadow-soft animate-slide-in">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="text-xs font-black text-slate-900 uppercase">Lampiran Terpilih</h4>
+                                    <button type="button" id="btn-remove-file"
+                                        class="text-[10px] font-bold text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-all flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]">close</span> Batalkan
+                                    </button>
+                                </div>
+                                <div id="file-preview-content"></div>
+                            </div>
+                        </div>
+
+                        <!-- SOSMED SECTION -->
+                        <div id="bukti-sosmed-section" class="hidden w-full space-y-6 animate-fade-in">
+                            <div class="space-y-4">
+                                <label
+                                    class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider pl-1">URL
+                                    / Tautan Bukti</label>
+                                <div class="flex gap-2">
+                                    <div class="flex items-center gap-3 flex-1">
+                                        <div
+                                            class="flex-shrink-0 w-10 h-10 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-primary transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">add_link</span>
+                                        </div>
+                                        <input type="url" id="sosmed_url" name="sosmed_url"
+                                            placeholder="Paste URL dari YouTube, TikTok, Instagram, Facebook, atau platform lainnya..."
+                                            class="form-input-base flex-1" />
+                                    </div>
+                                    <button type="button" id="btn-load-sosmed-preview"
+                                        class="px-5 py-3 bg-primary hover:bg-primary-hover text-white text-xs font-black rounded-xl transition-all shadow-md hover:shadow-lg active:scale-95 flex items-center gap-2">
+                                        PREVIEW
+                                    </button>
+                                </div>
+                                <p class="text-[10px] text-slate-400 pl-1 font-medium">💡 Sistem akan otomatis
+                                    mendeteksi platform dari URL yang Anda masukkan</p>
+                            </div>
+
+                            <!-- Hidden field untuk platform yang terdeteksi -->
+                            <input type="hidden" name="sosmed_platform" id="sosmed_platform_hidden" />
+
+                            <div id="sosmed-preview-container"
+                                class="hidden p-5 bg-white border border-slate-100 rounded-2xl shadow-soft animate-slide-in">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h4 class="text-xs font-black text-slate-900 uppercase">Hasil Tautan</h4>
+                                    <button type="button" id="btn-remove-sosmed"
+                                        class="text-[10px] font-bold text-red-500 hover:bg-red-50 px-3 py-1.5 rounded-lg transition-all">Hapus
+                                        Tautan</button>
+                                </div>
+                                <div id="sosmed-preview-content"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================
+     SECTION 10: CHECKBOX PERSETUJUAN
+     User harus menyetujui pernyataan kebenaran data sebelum mengirim pengaduan
+     ============================================ -->
+                    <div class="flex flex-col items-center pt-8 space-y-6">
+                        <label
+                            class="group relative flex items-start gap-4 p-5 rounded-2xl bg-amber-50/50 border border-amber-100 cursor-pointer transition-all hover:bg-amber-50">
+                            <div class="pt-0.5">
+                                <input class="w-5 h-5 cursor-pointer accent-primary rounded-md" id="agree_checkbox"
+                                    type="checkbox" />
+                            </div>
+                            <div class="text-sm text-slate-700 leading-relaxed font-medium">
+                                Saya bersumpah dan menyatakan bahwa data yang saya berikan adalah <span
+                                    class="text-slate-900 font-bold underline">benar, jujur, dan obyektif</span>. Saya
+                                memahami segala konsekuensi hukum jika terbukti memberikan fitnah atau laporan palsu.
+                            </div>
+                        </label>
+
+                        <div class="w-full">
+                            <button
+                                class="group relative w-full flex justify-center py-5 px-6 items-center gap-3 border border-transparent text-base font-black rounded-2xl text-white bg-gradient-to-r from-primary to-emerald-600 hover:from-primary-hover hover:to-emerald-700 shadow-[0_10px_30px_-5px_rgba(13,148,136,0.3)] transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
+                                id="btn-kirim-pengaduan" type="button">
+                                <span
+                                    class="material-symbols-outlined group-hover:rotate-12 transition-transform">rocket_launch</span>
+                                SUBMIT LAPORAN SEKARANG
+                            </button>
+                        </div>
+                    </div>
+                    <!-- END FORM PENGADUAN -->
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            // ============================================
+            // 1. NOTIFLIX CONFIGURATION
+            // ============================================
+            Notiflix.Notify.init({
+                width: '320px',
+                position: 'right-top',
+                distance: '20px',
+                borderRadius: '12px',
+                fontFamily: 'Inter, sans-serif',
+                timeout: 4000,
+            });
+
+            Notiflix.Report.init({
+                borderRadius: '24px',
+                width: '420px',
+                fontFamily: 'Inter, sans-serif',
+                success: { buttonBackground: '#0D9488', svgColor: '#0D9488' }
+            });
+
+            // ============================================
+            // 2. FORM INTERACTIVITY
+            // ============================================
+
+            // Reporting Method Toggle
+            function updateReportingMethod() {
+                const val = $('input[name="pelapor_identitas"]:checked').val();
+                $('input[name="pelapor_identitas"]').each(function () {
+                    const card = $(this).closest('label').find('div.border-2');
+                    if ($(this).is(':checked')) {
+                        card.addClass('radio-card-active border-primary bg-primary/[0.02]');
+                        card.find('.icon-box').addClass('bg-primary text-white');
+                    } else {
+                        card.removeClass('radio-card-active border-primary bg-primary/[0.02]');
+                        card.find('.icon-box').removeClass('bg-primary text-white');
+                    }
+                });
+
+                if (val === 'anonim') {
+                    $('#anon-info').removeClass('hidden').addClass('animate-fade-in');
+                    $('#identity-form').addClass('hidden');
+                } else {
+                    $('#anon-info').addClass('hidden');
+                    $('#identity-form').removeClass('hidden').addClass('animate-slide-in');
+                }
+            }
+            $('input[name="pelapor_identitas"]').on('change', updateReportingMethod);
+            updateReportingMethod();
+
+            // Terlapor Dynamic Sections
+            function updateTerlapor() {
+                const val = $('#terlapor_jenis').val();
+                const sections = ['Mahasiswa', 'Dosen', 'Tendik', 'Lainnya'];
+                sections.forEach(s => {
+                    const id = `#detail-${s.toLowerCase()}`;
+                    if (val === s) $(id).removeClass('hidden').addClass('animate-slide-in');
+                    else $(id).addClass('hidden');
+                });
+            }
+            $('#terlapor_jenis').on('change', updateTerlapor);
+            updateTerlapor();
+
+            // Kategori Management
+            function updateKategori() {
+                const val = $('#kategori_select').val();
+                if (val === 'Lainnya') {
+                    $('#kategori-select-wrapper').addClass('hidden');
+                    $('#kategori-custom-wrapper').removeClass('hidden').addClass('animate-slide-in');
+                    $('#kategori-button-wrapper').addClass('hidden');
+                    $('#kategori_custom_input').focus();
+                } else {
+                    $('#kategori-select-wrapper').removeClass('hidden');
+                    $('#kategori-custom-wrapper').addClass('hidden');
+                    $('#kategori-button-wrapper').removeClass('hidden');
+                }
+            }
+            $('#kategori_select').on('change', updateKategori);
+            $('#btn-tambah-kategori-alt').on('click', () => $('#kategori_select').val('Lainnya').change());
+            $('#btn-batal-kategori').on('click', () => $('#kategori_select').prop('selectedIndex', 0).change());
+            $('#btn-tambah-kategori').on('click', function () {
+                const name = $('#kategori_custom_input').val().trim();
+                if (!name) { Notiflix.Notify.warning('Masukkan nama kategori'); return; }
+                const newOpt = $('<option></option>').val(name).text(name);
+                $('#kategori_select option[value="Lainnya"]').before(newOpt);
+                $('#kategori_select').val(name).change();
+                Notiflix.Notify.success('Kategori ditambahkan');
+            });
+
+            // ============================================
+            // 3. FILE & SOSMED HANDLERS
+            // ============================================
+            const FileHandler = {
+                init() {
+                    const input = $('#lampiran'), label = input.closest('label');
+                    label.on('dragover', (e) => { e.preventDefault(); label.addClass('border-primary bg-primary/5'); });
+                    label.on('dragleave', () => label.removeClass('border-primary bg-primary/5'));
+                    label.on('drop', (e) => {
+                        e.preventDefault();
+                        label.removeClass('border-primary bg-primary/5');
+                        const files = e.originalEvent.dataTransfer.files;
+                        if (files.length) this.handle(files[0]);
+                    });
+                    input.on('change', (e) => { if (e.target.files.length) this.handle(e.target.files[0]); });
+                    $('#btn-remove-file').on('click', () => this.clear());
+                },
+                handle(file) {
+                    if (!['image/png', 'image/jpeg', 'application/pdf'].includes(file.type)) {
+                        Notiflix.Notify.failure('Format tidak didukung'); return;
+                    }
+                    if (file.size > 10 * 1024 * 1024) { Notiflix.Notify.failure('Maksimal 10MB'); return; }
+                    this.show(file);
+                },
+                show(file) {
+                    const container = $('#file-preview-container'), content = $('#file-preview-content'), size = (file.size / 1024 / 1024).toFixed(2);
+                    if (file.type.startsWith('image')) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => content.html(`<div class="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100"><img src="${e.target.result}" class="w-12 h-12 object-cover rounded-xl" /><div class="flex-1 overflow-hidden"><p class="text-[11px] font-bold text-slate-800 truncate">${file.name}</p><p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-0.5">${size} MB • Gambar</p></div><span class="material-symbols-outlined text-green-500">verified</span></div>`);
+                        reader.readAsDataURL(file);
+                    } else {
+                        content.html(`<div class="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100"><div class="w-12 h-12 bg-red-50 text-red-500 flex items-center justify-center rounded-xl"><span class="material-symbols-outlined">description</span></div><div class="flex-1 overflow-hidden"><p class="text-[11px] font-bold text-slate-800 truncate">${file.name}</p><p class="text-[10px] text-slate-400 uppercase tracking-widest font-bold mt-0.5">${size} MB • Dokumen PDF</p></div><span class="material-symbols-outlined text-green-500">verified</span></div>`);
+                    }
+                    container.removeClass('hidden');
+                },
+                clear() { $('#lampiran').val(''); $('#file-preview-container').addClass('hidden'); }
+            };
+
+            const SosmedHandler = {
+                init() {
+                    $('input[name="bukti_tipe"]').on('change', (e) => this.toggle(e.target.value));
+                    $('#btn-load-sosmed-preview').on('click', () => this.preview());
+                    $('#btn-remove-sosmed').on('click', () => this.clear());
+                },
+                toggle(type) {
+                    if (type === 'file') {
+                        $('#bukti-file-section').removeClass('hidden');
+                        $('#bukti-sosmed-section').addClass('hidden');
+                        this.clear(true);
+                    } else {
+                        $('#bukti-file-section').addClass('hidden');
+                        $('#bukti-sosmed-section').removeClass('hidden');
+                        FileHandler.clear();
+                    }
+                },
+                detectPlatform(url) {
+                    // Auto-detect platform from URL
+                    if (!url) return null;
+
+                    url = url.toLowerCase();
+                    if (url.includes('youtube.com') || url.includes('youtu.be')) return 'youtube';
+                    if (url.includes('tiktok.com')) return 'tiktok';
+                    if (url.includes('instagram.com')) return 'instagram';
+                    if (url.includes('facebook.com') || url.includes('fb.com')) return 'facebook';
+                    if (url.includes('linkedin.com')) return 'linkedin';
+                    if (url.includes('twitter.com') || url.includes('x.com')) return 'twitter';
+
+                    return 'other'; // Default untuk platform lain
+                },
+                preview() {
+                    const url = $('#sosmed_url').val().trim();
+                    if (!url) { Notiflix.Notify.warning('Masukkan URL terlebih dahulu'); return; }
+
+                    // Auto-detect platform
+                    const platform = this.detectPlatform(url);
+
+                    const map = {
+                        youtube: { i: '▶️', c: 'bg-red-50', n: 'YouTube', tc: 'text-red-600' },
+                        tiktok: { i: '♪', c: 'bg-slate-900 text-white', n: 'TikTok', tc: 'text-white' },
+                        instagram: { i: '📷', c: 'bg-gradient-to-r from-purple-50 to-pink-50', n: 'Instagram', tc: 'text-pink-600' },
+                        facebook: { i: '👤', c: 'bg-blue-50', n: 'Facebook', tc: 'text-blue-600' },
+                        linkedin: { i: '💼', c: 'bg-blue-600 text-white', n: 'LinkedIn', tc: 'text-white' },
+                        twitter: { i: '🐦', c: 'bg-sky-50', n: 'Twitter / X', tc: 'text-sky-600' },
+                        other: { i: '🔗', c: 'bg-slate-100', n: 'Link Lainnya', tc: 'text-slate-600' }
+                    };
+                    const data = map[platform] || map['other'];
+
+                    // Save detected platform to hidden field
+                    $('#sosmed_platform_hidden').val(platform);
+
+                    $('#sosmed-preview-content').html(`<div class="flex items-center gap-4 p-4 bg-slate-50 rounded-2xl border border-slate-100 animate-slide-in"><div class="w-12 h-12 ${data.c} flex items-center justify-center rounded-xl text-xl font-black">${data.i}</div><div class="flex-1 overflow-hidden"><p class="text-[10px] font-black ${data.tc} uppercase tracking-widest">${data.n}</p><p class="text-xs font-bold text-slate-800 truncate">${url}</p></div><span class="material-symbols-outlined text-green-500">verified</span></div>`);
+                    $('#sosmed-preview-container').removeClass('hidden');
+                    Notiflix.Notify.success(`Platform terdeteksi: ${data.n}`);
+                },
+                clear(silent = false) { $('#sosmed_url').val(''); $('#sosmed_platform_hidden').val(''); $('#sosmed-preview-container').addClass('hidden'); }
+            };
+
+            // ============================================
+            // 4. FORM VALIDATION & SUBMISSION
+            // ============================================
+            const FormValidator = {
+                clearErrors() {
+                    $('.input-error').removeClass('input-error');
+                    $('.error-message-dynamic').remove();
+                    $('[id$="_error"]').addClass('hidden');
+                },
+                addError(id, msg) {
+                    const el = $(`#${id}`);
+                    el.addClass('input-error');
+
+                    const errorContainer = $(`#${id}_error`);
+                    if (errorContainer.length) {
+                        errorContainer.removeClass('hidden');
+                        const textSpan = errorContainer.find(`#${id}_error_text`);
+                        if (textSpan.length) {
+                            textSpan.text(msg);
+                        } else {
+                            errorContainer.text(msg);
+                        }
+                    } else {
+                        // Fallback for fields without dedicated container
+                        if (!el.next('.error-message-dynamic').length) {
+                            el.after(`<span class="error-message-dynamic text-red-500 text-xs font-medium mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">error</span>${msg}</span>`);
+                        }
+                    }
+                },
+                validate() {
+                    this.clearErrors();
+                    let errors = 0;
+                    if ($('input[name="pelapor_identitas"]:checked').val() === 'identitas') {
+                        if (!$('#pelapor_nama').val().trim()) { this.addError('pelapor_nama', 'Nama wajib diisi'); errors++; }
+                    }
+                    if (!$('#kategori_select').val()) { this.addError('kategori_select', 'Pilih kategori'); errors++; }
+                    if (!$('#terlapor_jenis').val()) { this.addError('terlapor_jenis', 'Pilih pihak terlapor'); errors++; }
+
+                    // Validate terlapor_nama based on jenis
+                    const terlapor_jenis = $('#terlapor_jenis').val();
+                    if (terlapor_jenis === 'Mahasiswa' && !$('#terlapor_nama_mahasiswa').val().trim()) {
+                        this.addError('terlapor_nama_mahasiswa', 'Nama mahasiswa wajib diisi'); errors++;
+                    } else if (terlapor_jenis === 'Dosen' && !$('#terlapor_nama_dosen').val().trim()) {
+                        this.addError('terlapor_nama_dosen', 'Nama dosen wajib diisi'); errors++;
+                    } else if (terlapor_jenis === 'Tendik' && !$('#terlapor_nama_tendik').val().trim()) {
+                        this.addError('terlapor_nama_tendik', 'Nama tendik wajib diisi'); errors++;
+                    } else if (terlapor_jenis === 'Lainnya' && !$('#terlapor_nama_lainnya').val().trim()) {
+                        this.addError('terlapor_nama_lainnya', 'Nama wajib diisi'); errors++;
+                    }
+
+                    if (!$('#kejadian_deskripsi').val().trim() || $('#kejadian_deskripsi').val().length < 20) { this.addError('kejadian_deskripsi', 'Ceritakan minimal 20 karakter'); errors++; }
+                    if (!$('#kejadian_tgl').val()) { this.addError('kejadian_tgl', 'Pilih tanggal'); errors++; }
+                    if (!$('#agree_checkbox').is(':checked')) { Notiflix.Notify.info('Harap setujui pernyataan integritas'); errors++; }
+                    return errors === 0;
+                }
+            };
+
+            $('#btn-kirim-pengaduan').on('click', function (e) {
+                e.preventDefault();
+                if (!FormValidator.validate()) {
+                    Notiflix.Notify.failure('Pastikan semua data terisi dengan benar');
+                    window.scrollTo({ top: $('#form-pengaduan').offset().top - 100, behavior: 'smooth' });
+                    return;
+                }
+
+                Notiflix.Loading.standard('Mengirim laporan secara aman...');
+                const btn = $(this), originalText = btn.html();
+                btn.prop('disabled', true);
+
+                // Auto-detect platform if user didn't click preview
+                if ($('input[name="bukti_tipe"]:checked').val() === 'sosmed') {
+                    const url = $('#sosmed_url').val().trim();
+                    if (url && !$('#sosmed_platform_hidden').val()) {
+                        const platform = SosmedHandler.detectPlatform(url);
+                        $('#sosmed_platform_hidden').val(platform);
+                    }
+                }
+
+                const formData = new FormData($('#form-pengaduan')[0]);
+                // Ensure kategori_text is sent
+                formData.append('kategori_text', $('#kategori_select option:selected').text());
+
+                // Consolidate terlapor_nama based on terlapor_jenis
+                const terlapor_jenis = $('#terlapor_jenis').val();
+                let terlapor_nama = '';
+                if (terlapor_jenis === 'Mahasiswa') {
+                    terlapor_nama = $('#terlapor_nama_mahasiswa').val();
+                } else if (terlapor_jenis === 'Dosen') {
+                    terlapor_nama = $('#terlapor_nama_dosen').val();
+                } else if (terlapor_jenis === 'Tendik') {
+                    terlapor_nama = $('#terlapor_nama_tendik').val();
+                } else if (terlapor_jenis === 'Lainnya') {
+                    terlapor_nama = $('#terlapor_nama_lainnya').val();
+                }
+                formData.set('terlapor_nama', terlapor_nama);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '<?= base_url('submit-pengaduan') ?>',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: 'json',
+                    success: function (res) {
+                        Notiflix.Loading.remove();
+                        if (res.success) {
+                            Notiflix.Report.success('Laporan Berhasil!', res.message || 'Laporan Anda telah kami terima.', 'Lihat Bukti Lapor', () => {
+                                window.location.href = res.data?.referensi_pengaduan ? '<?= base_url() ?>referensi/' + encodeURIComponent(res.data.referensi_pengaduan) : '<?= base_url() ?>';
+                            });
+                        } else {
+                            Notiflix.Report.failure('Gagal', res.message || 'Coba lagi nanti.', 'Tutup');
+                        }
+                    },
+                    error: function (xhr) {
+                        Notiflix.Loading.remove();
+                        Notiflix.Notify.failure('Terjadi kesalahan server');
+                        btn.prop('disabled', false).html(originalText);
+                    }
+                });
+            });
+
+            FileHandler.init();
+            SosmedHandler.init();
+        });
+    </script>
+</body>
+
+</html>

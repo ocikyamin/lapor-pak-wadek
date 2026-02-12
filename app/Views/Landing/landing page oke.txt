@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Layanan Pengaduan WD3</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d968b",
+                        "primary-hover": "#0F766E",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#102220",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?q=80&w=2070&auto=format&fit=crop')",
+                        'grid-pattern': "linear-gradient(to right, #0d968b1a 1px, transparent 1px), linear-gradient(to bottom, #0d968b1a 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .dark .glass-card {
+            background: rgba(16, 34, 32, 0.6);
+            border: 1px solid rgba(13, 150, 139, 0.2);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #0d968b 0%, #0F766E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            transform: translateY(-100%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #mobile-menu.open {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-800 dark:text-slate-100 font-display antialiased selection:bg-primary selection:text-white">
+    <nav
+        class="fixed w-full z-50 transition-all duration-300 bg-white/95 dark:bg-background-dark/95 backdrop-blur-md border-b border-gray-200/50 dark:border-primary/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 relative z-50">
+                    <div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                        <img src="./logo/ftik.png" alt="" class="w-8 h-8 object-contain">
+                        <!-- <span class="material-icons-round text-primary text-2xl">school</span> -->
+                    </div>
+                    <div class="flex flex-col">
+
+                        <span class="font-bold text-lg leading-none tracking-tight text-slate-900 dark:text-white">Lapor
+                            WD3 FTIK</span>
+                        <span class="text-xs font-medium text-slate-500 dark:text-slate-400">UIN Bukittinggi</span>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors"
+                        href="#">Beranda</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors"
+                        href="#tata-cara">Tata Cara</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors"
+                        href="#faq">FAQ</a>
+                    <a class="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary transition-colors"
+                        href="#kontak">Kontak</a>
+                </div>
+                <div class="hidden md:flex">
+                    <a class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white transition-all duration-200 bg-primary border border-transparent rounded-full hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-lg shadow-primary/25 hover:shadow-primary/40"
+                        href="<?= base_url('buat-laporan') ?>">
+                        <span class="material-icons-round text-sm mr-2">campaign</span>
+                        Lapor Sekarang
+                    </a>
+                </div>
+                <div class="flex md:hidden relative z-50">
+                    <button aria-label="Toggle menu"
+                        class="text-slate-500 dark:text-slate-300 hover:text-primary focus:outline-none p-2"
+                        id="mobile-menu-btn" type="button">
+                        <span class="material-icons-round text-3xl">menu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="fixed inset-0 z-40 bg-white dark:bg-background-dark pt-24 px-6 md:hidden flex flex-col h-screen overflow-y-auto"
+            id="mobile-menu">
+            <div class="flex flex-col space-y-6">
+                <a class="text-lg font-medium text-slate-800 dark:text-slate-100 hover:text-primary dark:hover:text-primary transition-colors border-b border-gray-100 dark:border-gray-800 pb-4"
+                    href="#" onclick="document.getElementById('mobile-menu').classList.remove('open')">Beranda</a>
+                <a class="text-lg font-medium text-slate-800 dark:text-slate-100 hover:text-primary dark:hover:text-primary transition-colors border-b border-gray-100 dark:border-gray-800 pb-4"
+                    href="#tata-cara" onclick="document.getElementById('mobile-menu').classList.remove('open')">Tata
+                    Cara</a>
+                <a class="text-lg font-medium text-slate-800 dark:text-slate-100 hover:text-primary dark:hover:text-primary transition-colors border-b border-gray-100 dark:border-gray-800 pb-4"
+                    href="#faq" onclick="document.getElementById('mobile-menu').classList.remove('open')">FAQ</a>
+                <a class="text-lg font-medium text-slate-800 dark:text-slate-100 hover:text-primary dark:hover:text-primary transition-colors border-b border-gray-100 dark:border-gray-800 pb-4"
+                    href="#kontak" onclick="document.getElementById('mobile-menu').classList.remove('open')">Kontak</a>
+                <div class="pt-4">
+                    <a class="w-full flex items-center justify-center px-6 py-4 text-base font-bold text-white transition-all duration-200 bg-primary border border-transparent rounded-xl hover:bg-primary-hover shadow-lg shadow-primary/30"
+                        href="<?= base_url('buat-laporan') ?>"
+                        onclick="document.getElementById('mobile-menu').classList.remove('open')">
+                        <span class="material-icons-round mr-2">campaign</span>
+                        Lapor Sekarang
+                    </a>
+                </div>
+                <div class="pt-8 mt-auto pb-10 text-center">
+                    <p class="text-xs text-slate-400">© 2024 WD3 FTIK UIN Bukittinggi</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const icon = btn.querySelector('.material-icons-round');
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('open');
+                if (menu.classList.contains('open')) {
+                    icon.textContent = 'close';
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+                } else {
+                    icon.textContent = 'menu';
+                    document.body.style.overflow = '';
+                }
+            });
+            // Close menu when clicking outside links (optional, for safety)
+            menu.addEventListener('click', (e) => {
+                if (e.target === menu) {
+                    menu.classList.remove('open');
+                    icon.textContent = 'menu';
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    </script>
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 z-0 pointer-events-none">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-primary/5 to-transparent"></div>
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/20 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-50"></div>
+            <div class="absolute inset-0 opacity-[0.03] dark:opacity-[0.05]"
+                style="background-size: 40px 40px; background-image: linear-gradient(to right, #0d968b 1px, transparent 1px), linear-gradient(to bottom, #0d968b 1px, transparent 1px);">
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="text-left space-y-8">
+                    <div
+                        class="inline-flex items-center space-x-2 bg-white dark:bg-white/5 border border-primary/20 rounded-full px-4 py-1.5 shadow-sm">
+                        <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                        <span class="text-xs font-semibold text-primary tracking-wide uppercase">Saluran Resmi Pengaduan
+                            & Aspirasi</span>
+                    </div>
+                    <h1
+                        class="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 dark:text-white leading-[1.15]">
+                        Wujudkan Lingkungan Kampus <br />
+                        <span class="text-gradient">Berintegritas & Profesional</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed">
+                        Sampaikan laporan atau aspirasi Anda secara aman melalui portal SIGAP. Kami menjamin kerahasiaan
+                        identitas Anda untuk mendukung integritas akademik di FTIK UIN Bukittinggi.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white transition-all duration-200 bg-primary border border-transparent rounded-xl hover:bg-primary-hover shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1"
+                            href="<?= base_url('buat-laporan') ?>">
+                            Buat Laporan
+                            <span class="material-icons-round ml-2">arrow_forward</span>
+                        </a>
+                        <a class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-slate-700 dark:text-slate-200 transition-all duration-200 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary dark:hover:text-primary"
+                            href="#how-it-works">
+                            <span class="material-icons-round mr-2 text-primary">play_circle_outline</span>
+                            Pelajari Alur
+                        </a>
+                    </div>
+                    <div class="flex items-center gap-6 pt-4 text-sm text-slate-500 dark:text-slate-400">
+                        <div class="flex items-center gap-2">
+                            <span class="material-icons-round text-green-500 text-lg">check_circle</span>
+                            <span>Enkripsi Data</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-icons-round text-green-500 text-lg">check_circle</span>
+                            <span>Identitas Terlindungi</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative lg:h-[600px] w-full hidden lg:flex items-center justify-center">
+                    <div
+                        class="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl border-4 border-white dark:border-slate-800">
+                        <img alt="Modern university campus building with students walking, representing academic environment"
+                            class="w-full h-full object-cover"
+                            data-alt="Modern university campus building with students walking, representing academic environment"
+                            src="<?= base_url('logo/lapor.png') ?>" />
+                        <div
+                            class="absolute bottom-8 left-8 right-8 glass-card p-6 rounded-xl shadow-lg border-l-4 border-l-primary animate-[fadeInUp_1s_ease-out_forwards]">
+                            <div class="flex items-start gap-4">
+                                <div class="p-3 bg-primary/10 rounded-lg">
+                                    <span class="material-icons-round text-primary text-2xl">security</span>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-slate-900 dark:text-white">Privasi Anda Prioritas Kami
+                                    </h3>
+                                    <p class="text-sm text-slate-600 dark:text-slate-300 mt-1">Setiap laporan
+                                        diverifikasi
+                                        secara manual oleh tim khusus untuk menjamin keaslian dan kerahasiaan data
+                                        pengguna.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="absolute -z-10 -bottom-6 -right-6 w-24 h-24 text-primary/20">
+                        <svg fill="currentColor" viewBox="0 0 100 100">
+                            <pattern height="20" id="dots" patternUnits="userSpaceOnUse" width="20" x="0" y="0">
+                                <circle cx="2" cy="2" r="2"></circle>
+                            </pattern>
+                            <rect fill="url(#dots)" height="100" width="100"></rect>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- New Section: About / Innovation Context -->
+    <section
+        class="py-20 bg-slate-50 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 relative overflow-hidden">
+        <!-- Decoration elements -->
+        <div class="absolute inset-0 z-0 pointer-events-none opacity-30">
+            <div class="absolute -right-20 -top-20 w-96 h-96 bg-primary/5 rounded-full blur-3xl"></div>
+            <div class="absolute -left-20 -bottom-20 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex flex-col md:flex-row items-center gap-10 md:gap-16">
+                <!-- Illustration/Logo Column -->
+                <div class="w-full md:w-5/12 flex justify-center md:items-start md:justify-end">
+                    <div class="relative group cursor-pointer perspective-1000">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-tr from-primary via-emerald-400 to-teal-500 rounded-full blur-2xl opacity-20 group-hover:opacity-40 transition-opacity duration-500">
+                        </div>
+                        <div
+                            class="relative w-48 h-48 sm:w-64 sm:h-64 bg-white dark:bg-slate-800 rounded-full shadow-2xl flex items-center justify-center border-[6px] border-white dark:border-slate-700 p-8 z-10 transform group-hover:scale-105 transition-all duration-500 ease-out">
+                            <img src="<?= base_url('logo/ftik.png') ?>" alt="Logo FTIK"
+                                class="w-full h-full object-contain drop-shadow-md">
+                        </div>
+                        <!-- Floating Badge -->
+                        <div
+                            class="absolute bottom-4 right-0 z-20 bg-slate-900 text-white text-[11px] font-bold px-4 py-1.5 rounded-full shadow-lg border-2 border-white dark:border-slate-700 whitespace-nowrap animate-bounce">
+                            Since 2024
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Column -->
+                <div class="w-full md:w-7/12 text-center md:text-left space-y-6">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-wide border border-primary/20 mx-auto md:mx-0 shadow-sm">
+                        <span class="material-icons-round text-sm animate-pulse">new_releases</span>
+                        Terobosan Inovatif
+                    </div>
+
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white leading-tight">
+                        Diinisiasi Oleh <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-600">Wakil
+                            Dekan III</span><br class="hidden md:block" /> Fakultas Tarbiyah & Ilmu Keguruan
+                    </h2>
+
+                    <div class="space-y-4 text-slate-600 dark:text-slate-300 leading-relaxed text-base sm:text-lg">
+                        <p>
+                            Aplikasi ini merupakan wujud nyata komitmen pimpinan dalam menyediakan sarana pelaporan yang
+                            <span class="font-semibold text-slate-900 dark:text-white">modern, transparan, dan
+                                terpercaya</span>. Dikembangkan berbasis <span class="font-bold text-primary">Web &
+                                Android</span> untuk memudahkan akses di era digital.
+                        </p>
+                        <p
+                            class="text-base text-slate-500 dark:text-slate-400 border-l-4 border-primary/20 pl-4 italic">
+                            "Hadir sebagai saluran resmi bagi seluruh <span
+                                class="font-semibold text-slate-700 dark:text-slate-200">Civitas Akademika FTIK & UIN
+                                Bukittinggi</span> untuk melaporkan dugaan perilaku menyimpang, pelanggaran kode etik,
+                            serta penyampaian aspirasi demi kemajuan institusi."
+                        </p>
+                    </div>
+
+                    <!-- Platform Badges -->
+                    <div class="flex flex-wrap gap-4 justify-center md:justify-start pt-2">
+                        <div
+                            class="group flex items-center gap-3 px-5 py-3 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-primary/30 transition-all cursor-default w-full sm:w-auto">
+                            <div
+                                class="w-10 h-10 rounded-full bg-green-50 flex items-center justify-center text-green-600 group-hover:bg-green-100 transition-colors">
+                                <span class="material-icons-round text-2xl">android</span>
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase leading-none mb-1">Available
+                                    on</span>
+                                <span class="font-bold text-sm text-slate-700 dark:text-slate-200 leading-none">Android
+                                    App</span>
+                            </div>
+                        </div>
+                        <div
+                            class="group flex items-center gap-3 px-5 py-3 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-primary/30 transition-all cursor-default w-full sm:w-auto">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600 group-hover:bg-blue-100 transition-colors">
+                                <span class="material-icons-round text-2xl">language</span>
+                            </div>
+                            <div class="flex flex-col text-left">
+                                <span class="text-[10px] font-bold text-slate-400 uppercase leading-none mb-1">Access
+                                    via</span>
+                                <span class="font-bold text-sm text-slate-700 dark:text-slate-200 leading-none">Web
+                                    Portal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 relative bg-white dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-primary font-semibold tracking-wide uppercase text-sm">Mengapa Melapor Di Sini?</span>
+                <h2 class="mt-2 text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">Komitmen Layanan Kami
+                </h2>
+                <p class="mt-4 text-lg text-slate-600 dark:text-slate-300">Kami menjamin setiap suara yang masuk akan
+                    diperlakukan dengan standar profesionalisme tinggi.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                    class="glass-card rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 group">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300 text-primary">
+                        <span class="material-icons-round text-3xl">admin_panel_settings</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Jaminan Kerahasiaan</h3>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">Identitas pelapor dilindungi
+                        sepenuhnya. Data dienkripsi dan hanya dapat diakses oleh tim investigasi khusus di bawah sumpah
+                        jabatan.</p>
+                </div>
+                <div
+                    class="glass-card rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 group relative overflow-hidden">
+                    <div
+                        class="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110">
+                    </div>
+                    <div
+                        class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300 text-primary relative z-10">
+                        <span class="material-icons-round text-3xl">bolt</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10">Tindak Lanjut Cepat
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed relative z-10">Laporan yang
+                        terverifikasi akan segera diproses dalam 1x24 jam kerja. Notifikasi perkembangan kasus dikirim
+                        secara berkala.</p>
+                </div>
+                <div
+                    class="glass-card rounded-2xl p-8 transition-all duration-300 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-2 group">
+                    <div
+                        class="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-300 text-primary">
+                        <span class="material-icons-round text-3xl">visibility</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Transparansi Proses</h3>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">Pelapor dapat memantau status laporan
+                        melalui tiket unik. Hasil akhir investigasi disampaikan secara objektif dan akuntabel.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-20 relative bg-background-light dark:bg-background-dark" id="how-it-works">
+        <div class="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent">
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">Alur Penyelesaian Laporan</h2>
+                <p class="mt-4 text-lg text-slate-600 dark:text-slate-300">Empat langkah mudah dari pelaporan hingga
+                    penyelesaian kasus.</p>
+            </div>
+            <div class="relative">
+                <div
+                    class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-slate-200 dark:bg-slate-700 -translate-y-1/2 z-0 rounded-full">
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                    <div
+                        class="group relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 md:border-none md:bg-transparent md:shadow-none md:dark:bg-transparent text-center">
+                        <div
+                            class="w-16 h-16 mx-auto bg-white dark:bg-slate-800 rounded-full border-4 border-primary flex items-center justify-center mb-6 shadow-sm relative z-20 group-hover:scale-110 transition-transform duration-300">
+                            <span class="material-icons-round text-primary text-3xl">edit_note</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">1. Kirim Laporan</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Isi formulir pengaduan dengan detail
+                            kejadian dan bukti pendukung.</p>
+                    </div>
+                    <div
+                        class="group relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 md:border-none md:bg-transparent md:shadow-none md:dark:bg-transparent text-center">
+                        <div
+                            class="w-16 h-16 mx-auto bg-white dark:bg-slate-800 rounded-full border-4 border-slate-200 dark:border-slate-600 group-hover:border-primary flex items-center justify-center mb-6 shadow-sm relative z-20 group-hover:scale-110 transition-all duration-300">
+                            <span
+                                class="material-icons-round text-slate-400 group-hover:text-primary text-3xl transition-colors">fact_check</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">2. Verifikasi</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Tim WD3 memvalidasi kelengkapan data dan
+                            urgensi laporan.</p>
+                    </div>
+                    <div
+                        class="group relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 md:border-none md:bg-transparent md:shadow-none md:dark:bg-transparent text-center">
+                        <div
+                            class="w-16 h-16 mx-auto bg-white dark:bg-slate-800 rounded-full border-4 border-slate-200 dark:border-slate-600 group-hover:border-primary flex items-center justify-center mb-6 shadow-sm relative z-20 group-hover:scale-110 transition-all duration-300">
+                            <span
+                                class="material-icons-round text-slate-400 group-hover:text-primary text-3xl transition-colors">search</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">3. Investigasi</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Penelusuran fakta mendalam dilakukan
+                            dengan memanggil pihak terkait.</p>
+                    </div>
+                    <div
+                        class="group relative bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 md:border-none md:bg-transparent md:shadow-none md:dark:bg-transparent text-center">
+                        <div
+                            class="w-16 h-16 mx-auto bg-white dark:bg-slate-800 rounded-full border-4 border-slate-200 dark:border-slate-600 group-hover:border-primary flex items-center justify-center mb-6 shadow-sm relative z-20 group-hover:scale-110 transition-all duration-300">
+                            <span
+                                class="material-icons-round text-slate-400 group-hover:text-primary text-3xl transition-colors">gavel</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">4. Penyelesaian</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Pemberian sanksi atau mediasi sesuai
+                            temuan, dan penutupan kasus.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="py-24 relative overflow-hidden" id="report">
+        <div class="absolute inset-0 bg-primary">
+            <div class="absolute inset-0 opacity-10"
+                style="background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 20px 20px;"></div>
+            <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary to-background-dark/30"></div>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">Siap Melaporkan Masalah?</h2>
+            <p class="text-xl text-white/90 mb-10 max-w-2xl mx-auto">Jangan ragu untuk berbicara. Kontribusi Anda sangat
+                berharga untuk menciptakan lingkungan akademik yang sehat dan berintegritas di FTIK.</p>
+            <div class="glass-card p-1 rounded-2xl inline-block">
+                <a href="<?= base_url('buat-laporan') ?>"
+                    class="bg-white text-primary hover:bg-slate-50 font-bold py-4 px-10 rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-3">
+                    <span class="material-icons-round">add_circle_outline</span>
+                    Buat Laporan Baru
+                </a>
+            </div>
+            <p class="mt-6 text-sm text-white/70">
+                Butuh bantuan teknis? <a class="underline hover:text-white font-medium" href="#">Hubungi Admin</a>
+            </p>
+        </div>
+    </section>
+    <footer class="bg-slate-900 text-slate-300 py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div class="space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded bg-primary flex items-center justify-center text-white">
+                            <span class="material-icons-round text-lg">school</span>
+                        </div>
+                        <span class="font-bold text-white text-lg">WD3 FTIK UIN Bukittinggi</span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Layanan resmi pengaduan dan aspirasi untuk mewujudkan lingkungan kampus yang bersih,
+                        berintegritas, dan profesional.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Navigasi</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a class="hover:text-primary transition-colors" href="#">Beranda</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Tata Cara Pelaporan</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Pertanyaan Umum (FAQ)</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Kebijakan Privasi</a></li>
+                    </ul>
+                </div>
+                <div id="kontak">
+                    <h4 class="text-white font-semibold mb-4">Hubungi Kami</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="material-icons-round text-primary text-base mt-0.5">location_on</span>
+                            <span>Gedung FTIK, Kampus II UIN Bukittinggi.<br />Jl. Gurun Aur, Kubang Putih.</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-icons-round text-primary text-base">email</span>
+                            <span>wd3.ftik@uinbukittinggi.ac.id</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="material-icons-round text-primary text-base">call</span>
+                            <span>(0752) 12345678</span>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Lokasi Kampus</h4>
+                    <div class="w-full h-32 bg-slate-800 rounded-lg overflow-hidden relative">
+                        <img alt="Map location of UIN Bukittinggi campus"
+                            class="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity"
+                            data-alt="Map location of UIN Bukittinggi campus" data-location="UIN Bukittinggi"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBII6wan6hcrV8Cemqaw6DtLMdodsfPcYx8j3uWAQunYjCC5k1nld5wthlBIT8rBvBjvKMsmRXiWkX7Ze_52GZ7MWzhLOw93SViDkwuN4cCUeDl17uFTiGH1unXjQm24lLKf8RfKMzKKVp_FeaV1NNP_RrBJMTsVF5Iz4xDOUmSIp35uAg-WvBXFMLL8RR8onMavsqbGsUNGs2N3fUFyjlfGUkfqA7oRJA_HKXi3VJYJ6Ov1Qo2YwlHtbEP0IBqZCyhCB5VkflslyY" />
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <span class="material-icons-round text-primary text-3xl drop-shadow-lg">place</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm text-slate-500">© 2024 WD3 FTIK UIN Sjech M. Djamil Djambek Bukittinggi. All rights
+                    reserved.</p>
+                <div class="flex gap-4">
+                    <a class="text-slate-500 hover:text-white transition-colors" href="#">
+                        <span class="sr-only">Instagram</span>
+                        <svg aria-hidden="true" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path clip-rule="evenodd"
+                                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.409-.06 3.809-.06h.63zm1.672 5.374a5.004 5.004 0 115.004 5.004 5.004 5.004 0 01-5.004-5.004zm3.895 4.448a1.67 1.67 0 101.67 1.67 1.67 1.67 0 00-1.67-1.67zm-3.102 8.216c-3.14 0-5.686-2.546-5.686-5.686s2.546-5.686 5.686-5.686 5.686 2.546 5.686 5.686-2.546 5.686-5.686 5.686z"
+                                fill-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

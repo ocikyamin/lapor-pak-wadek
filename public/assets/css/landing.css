@@ -1,0 +1,71 @@
+/* 
+    Developer: Abdul Yamin, S.Pd., M.Kom
+    GitHub: https://github.com/ocikyamin
+*/
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass-card {
+    background: rgba(16, 34, 32, 0.6);
+    border: 1px solid rgba(13, 150, 139, 0.2);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, #0d968b 0%, #0F766E 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#mobile-menu {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+#mobile-menu.open {
+    transform: translateX(0);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Staggered animations for menu items */
+#mobile-menu .menu-item {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#mobile-menu.open .menu-item {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+#mobile-menu.open .menu-item:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+#mobile-menu.open .menu-item:nth-child(2) {
+    transition-delay: 0.15s;
+}
+
+#mobile-menu.open .menu-item:nth-child(3) {
+    transition-delay: 0.2s;
+}
+
+#mobile-menu.open .menu-item:nth-child(4) {
+    transition-delay: 0.25s;
+}
+
+#mobile-menu.open .menu-item:nth-child(5) {
+    transition-delay: 0.3s;
+}

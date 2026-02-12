@@ -1,0 +1,298 @@
+<!-- 
+    Developer: Abdul Yamin, S.Pd., M.Kom
+    GitHub: https://github.com/ocikyamin
+    Project: Lapor Pak Wadek 3 - FTIK UIN Bukittinggi
+-->
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard Admin - Lapor Pak Wadek III</title>
+    <meta name="author" content="Abdul Yamin, S.Pd., M.Kom" />
+    <meta name="developer" content="https://github.com/ocikyamin" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d968b",
+                        "primary-light": "#10b8ab",
+                        "primary-dark": "#0a756c",
+                        "accent": "#06d6a0",
+                        "background-light": "#f0f4f8",
+                        "background-dark": "#0a1929",
+                    },
+                    fontFamily: {
+                        "display": ["Poppins", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                        'gradient-primary': 'linear-gradient(135deg, #0d968b 0%, #10b8ab 100%)',
+                        'gradient-accent': 'linear-gradient(135deg, #06d6a0 0%, #0d968b 100%)',
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(13, 150, 139, 0.3)',
+                        'glow-lg': '0 0 30px rgba(13, 150, 139, 0.4)',
+                    },
+                    animation: {
+                        'slide-in': 'slideIn 0.3s ease-out',
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        slideIn: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                },
+            },
+        }
+    </script>
+    <script id="theme-checker">
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <link rel="stylesheet" href="<?= base_url('assets/css/admin.css') ?>">
+</head>
+
+<body
+    class="bg-gradient-to-br from-background-light to-slate-100 dark:from-background-dark dark:to-slate-900 text-slate-800 dark:text-slate-100 font-display antialiased min-h-screen">
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenuOverlay"
+        class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 hidden mobile-menu-overlay opacity-0 lg:hidden">
+    </div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed top-0 left-0 h-screen w-72 -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out z-50 flex flex-col bg-white dark:bg-slate-50 shadow-2xl shadow-slate-900/10">
+        <!-- Content -->
+        <div class="flex flex-col h-full">
+            <!-- Brand Header -->
+            <div class="h-20 flex items-center justify-between px-6 border-b border-slate-200">
+                <div class="flex items-center gap-4">
+                    <!-- Logo -->
+                    <div class="flex items-center gap-3 relative z-50">
+                        <img src="<?= base_url('logo/ftik.png') ?>" alt="FTIK"
+                            class="w-12 h-12 object-contain drop-shadow-lg hover:scale-110 transition-transform duration-300">
+                        <div>
+                            <h1 class="font-bold text-sm text-slate-800 tracking-tight leading-tight">Control Panel
+                            </h1>
+                            <p class="text-[10px] text-slate-500 font-bold tracking-widest uppercase mt-0.5">Admin
+                                Portal</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Mobile Close Button -->
+                <button id="closeMobileMenu" class="lg:hidden text-slate-600 hover:text-slate-900 transition-colors">
+                    <span class="material-icons">close</span>
+                </button>
+            </div>
+
+            <!-- Navigation Menu -->
+            <nav class="flex-1 overflow-y-auto py-6 px-4 space-y-1">
+                <!-- Dashboard -->
+                <a href="<?= base_url('admin/dashboard') ?>"
+                    class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:text-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <span class="material-icons text-2xl group-hover:scale-110 transition-transform">dashboard</span>
+                    <span class="font-semibold">Dashboard</span>
+                </a>
+
+                <!-- Laporan Masuk -->
+                <a href="<?= base_url('admin/laporan-masuk') ?>"
+                    class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:text-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <span
+                        class="material-icons text-2xl group-hover:scale-110 transition-transform">mark_email_unread</span>
+                    <span class="font-semibold flex-1">Laporan Masuk</span>
+                    <span id="sidebar-badge"
+                        class="badge-counter bg-primary text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-md"><?= model(App\Models\PengaduanModel::class)->where('status_read', 0)->countAllResults() ?></span>
+                </a>
+
+                <!-- Arsip Laporan -->
+                <a href="<?= base_url('admin/arsip') ?>"
+                    class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:text-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <span class="material-icons text-2xl group-hover:scale-110 transition-transform">archive</span>
+                    <span class="font-semibold">Arsip Laporan</span>
+                </a>
+
+                <!-- Log Aktivitas -->
+                <a href="<?= base_url('admin/aktivitas') ?>"
+                    class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:text-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <span class="material-icons text-2xl group-hover:scale-110 transition-transform">history</span>
+                    <span class="font-semibold">Log Aktivitas</span>
+                </a>
+
+                <!-- Divider -->
+                <div class="py-3">
+                    <div class="border-t border-slate-200"></div>
+                </div>
+
+                <!-- Kategori -->
+                <a href="<?= base_url('admin/kategori') ?>"
+                    class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:text-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <span class="material-icons text-2xl group-hover:scale-110 transition-transform">category</span>
+                    <span class="font-semibold">Kategori</span>
+                </a>
+
+                <!-- Program Studi -->
+                <a href="<?= base_url('admin/prodi') ?>"
+                    class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:text-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <span class="material-icons text-2xl group-hover:scale-110 transition-transform">school</span>
+                    <span class="font-semibold">Program Studi</span>
+                </a>
+
+                <!-- User -->
+                <a href="<?= base_url('admin/users') ?>"
+                    class="nav-item flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:text-primary hover:bg-primary/5 transition-all duration-200 group">
+                    <span class="material-icons text-2xl group-hover:scale-110 transition-transform">people</span>
+                    <span class="font-semibold">User</span>
+                </a>
+            </nav>
+
+            <!-- Admin Profile Footer with Logout -->
+            <div class="p-4 border-t border-slate-200">
+                <div class="bg-slate-50 rounded-xl p-3 flex items-center gap-3 mb-3 border border-slate-200">
+                    <div class="relative">
+                        <img alt="Admin Avatar"
+                            class="w-11 h-11 rounded-full border-2 border-primary/20 shadow-md object-cover"
+                            src="https://ui-avatars.com/api/?name=<?= urlencode(session()->get('username')) ?>&background=0d968b&color=fff&bold=true" />
+                        <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 rounded-full border-2 border-white">
+                        </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <p class="text-sm font-semibold text-slate-800 truncate"><?= session()->get('username') ?></p>
+                        <p class="text-xs text-slate-500 truncate"><?= session()->get('email') ?></p>
+                    </div>
+                </div>
+                <!-- Logout Button -->
+                <a href="<?= base_url('logout') ?>"
+                    class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-colors group">
+                    <span class="material-icons group-hover:scale-110 transition-transform">logout</span>
+                    <span class="font-semibold">Logout</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="lg:ml-72 flex-1 flex flex-col min-h-screen">
+        <!-- Top Navigation Bar -->
+        <header
+            class="sticky top-0 z-30 h-16 lg:h-18 bg-white/80 dark:bg-slate-800/80 backdrop-blur-lg border-b border-slate-200/50 dark:border-slate-700/50 shadow-sm">
+            <div class="h-full px-4 lg:px-8 flex items-center justify-between gap-4">
+                <!-- Left Section: Mobile Menu + Title -->
+                <div class="flex items-center gap-4">
+                    <!-- Mobile Menu Button -->
+                    <button id="openMobileMenu"
+                        class="lg:hidden text-slate-600 dark:text-slate-300 hover:text-primary transition-colors p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg">
+                        <span class="material-icons text-2xl">menu</span>
+                    </button>
+
+                    <div>
+                        <h2 class="text-lg lg:text-xl font-bold text-slate-800 dark:text-white leading-tight">
+                            SIGAP - Portal Integritas
+                        </h2>
+                        <p
+                            class="text-[11px] font-medium text-teal-600 dark:text-teal-400 uppercase tracking-wider hidden lg:block">
+                            Sistem Pengaduan & Aspirasi Civitas Akademika
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Right Section: Actions -->
+                <div class="flex items-center gap-2 lg:gap-4">
+                    <!-- Quick Stats Header (Hidden on mobile) -->
+                    <div class="hidden xl:flex items-center gap-6 mr-2">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-blue-100/50 dark:bg-blue-900/20 text-blue-600 flex items-center justify-center shadow-sm">
+                                <span class="material-icons text-xl">analytics</span>
+                            </div>
+                            <div>
+                                <p
+                                    class="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">
+                                    Total Laporan</p>
+                                <p id="header-total-count"
+                                    class="text-sm font-extrabold text-slate-800 dark:text-white leading-none">
+                                    <?= model(App\Models\PengaduanModel::class)->countAllResults() ?>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="w-px h-8 bg-slate-200 dark:bg-slate-700/50"></div>
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-10 h-10 rounded-xl bg-emerald-100/50 dark:bg-emerald-900/20 text-emerald-600 flex items-center justify-center shadow-sm">
+                                <span class="material-icons text-xl">task_alt</span>
+                            </div>
+                            <div>
+                                <p
+                                    class="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest leading-none mb-1">
+                                    Tuntas</p>
+                                <p id="header-selesai-count"
+                                    class="text-sm font-extrabold text-slate-800 dark:text-white leading-none">
+                                    <?= model(App\Models\PengaduanModel::class)->where('status_tindakan', 'Selesai')->countAllResults() ?>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Notifications -->
+                    <button
+                        class="relative p-2 lg:p-2.5 text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                        <span class="material-icons text-2xl">notifications</span>
+                        <span class="absolute top-1 right-1 flex h-5 w-5">
+                            <span
+                                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                            <span id="notif-badge"
+                                class="relative inline-flex rounded-full h-5 w-5 bg-red-500 text-white text-xs items-center justify-center font-bold"><?= model(App\Models\PengaduanModel::class)->where('status_read', 0)->countAllResults() ?></span>
+                        </span>
+                    </button>
+
+                    <!-- Dark Mode Toggle -->
+                    <button id="darkModeToggle"
+                        class="hidden lg:block p-2.5 text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-colors">
+                        <span class="material-icons text-2xl dark:hidden">dark_mode</span>
+                        <span class="material-icons text-2xl hidden dark:block">light_mode</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Content -->
+        <div class="flex-1 overflow-y-auto p-4 lg:p-8">
+            <!-- Dynamic Content Area -->
+            <div class="animate-fade-in">
+                <?= $this->renderSection('content') ?>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        window.ADMIN_DASHBOARD_URL = '<?= base_url("admin/dashboard") ?>';
+        window.NOTIF_COUNT_URL = '<?= base_url('admin/get-notification-count') ?>';
+    </script>
+    <script src="<?= base_url('assets/js/admin.js') ?>"></script>
+    <?= $this->renderSection('scripts') ?>
+</body>
+
+</html>

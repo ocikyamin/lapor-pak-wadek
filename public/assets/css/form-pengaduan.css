@@ -1,0 +1,204 @@
+/* 
+    Developer: Abdul Yamin, S.Pd., M.Kom
+    GitHub: https://github.com/ocikyamin
+*/
+
+.gradient-bg {
+    background: linear-gradient(135deg, #f59e0b 0%, #eab308 25%, #84cc16 50%, #22c55e 75%, #f59e0b 100%);
+}
+
+/* Glass Header */
+.glass-header {
+    background-color: #0D9488 !important;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+    border-bottom: 1px solid #0f766e !important;
+}
+
+/* Form Input Base - High Specificity to override Tailwind Forms Plugin */
+input.form-input-base,
+textarea.form-input-base,
+select.form-select-base {
+    display: block !important;
+    width: 100% !important;
+    border-radius: 0.5rem !important;
+    border: 1px solid #E2E8F0 !important;
+    background-color: #ffffff !important;
+    padding: 0.75rem 1rem !important;
+    color: #1E293B !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+    font-size: 0.875rem !important;
+}
+
+@media (min-width: 640px) {
+
+    input.form-input-base,
+    textarea.form-input-base,
+    select.form-select-base {
+        font-size: 1rem !important;
+        line-height: 1.5rem !important;
+    }
+}
+
+input.form-input-base::placeholder,
+textarea.form-input-base::placeholder {
+    color: #64748B !important;
+}
+
+input.form-input-base:focus,
+textarea.form-input-base:focus,
+select.form-select-base:focus {
+    border-color: #0D9488 !important;
+    outline: none !important;
+    box-shadow: 0 0 0 1px #0D9488 !important;
+}
+
+/* Form Input with Icon */
+.form-input-with-icon {
+    padding-left: 3rem !important;
+}
+
+/* Form Select Base */
+select.form-select-base {
+    padding-right: 2.5rem !important;
+    appearance: none !important;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+    background-position: right 0.5rem center !important;
+    background-repeat: no-repeat !important;
+    background-size: 1.5em 1.5em !important;
+}
+
+/* Radio Card Logic - Pure CSS Mirroring Tailwind Peer logic */
+input.peer:checked+div {
+    border-color: #0D9488 !important;
+    background-color: rgba(204, 251, 241, 0.02) !important;
+    box-shadow: 0 0 0 4px rgba(13, 148, 136, 0.1) !important;
+}
+
+input.peer:checked+div .w-12.h-12 {
+    background-color: #0D9488 !important;
+    color: #ffffff !important;
+}
+
+input.peer:checked+div .w-5.h-5 {
+    border-color: #0D9488 !important;
+}
+
+input.peer:checked+div .w-5.h-5::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-color: #0D9488;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Input Error & Success */
+.input-error {
+    border-color: #ef4444 !important;
+}
+
+.input-error:focus {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 1px #ef4444 !important;
+}
+
+.input-success {
+    border-color: #22c55e !important;
+}
+
+.input-success:focus {
+    border-color: #22c55e !important;
+    box-shadow: 0 0 0 1px #22c55e !important;
+}
+
+/* Error Message */
+.error-message {
+    color: #ef4444 !important;
+    font-size: 0.75rem !important;
+    line-height: 1rem !important;
+    font-weight: 500 !important;
+    margin-top: 0.25rem !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+}
+
+/* Animations */
+@keyframes slide-in {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slide-out {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+}
+
+.animate-slide-in {
+    animation: slide-in 0.3s ease-out !important;
+}
+
+.animate-slide-out {
+    animation: slide-out 0.3s ease-out forwards !important;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite !important;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards !important;
+}

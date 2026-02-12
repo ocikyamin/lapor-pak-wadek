@@ -1,0 +1,111 @@
+-- 1. Tabel Kategori
+CREATE TABLE `kategori` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `kategori` varchar(100) NOT NULL COMMENT 'Nama kategori pelanggaran',
+  `desk` text NOT NULL COMMENT 'Deskripsi kategori',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 2. Tabel Prodi
+CREATE TABLE `prodi` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `nm_prodi` varchar(255) NOT NULL COMMENT 'Nama program studi',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 3. Tabel Jenis Terlapor
+CREATE TABLE `jenis_terlapor` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `jenis` varchar(60) NOT NULL COMMENT 'Jenis pihak yang dilaporkan',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 4. Tabel Users (Admin)
+CREATE TABLE `users` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `email` varchar(60) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `username` varchar(60) NOT NULL,
+  `is_active` int NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 5. Tabel Utama Pengaduan
+CREATE TABLE `pengaduan` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `referensi_pengaduan` varchar(30) NOT NULL,
+  `kategori_id` int unsigned DEFAULT NULL,
+  `kategori_text` varchar(100) DEFAULT NULL,
+  `pelapor_identitas` enum('anonim','identitas') NOT NULL DEFAULT 'anonim',
+  `pelapor_nama` varchar(100) DEFAULT NULL,
+  `pelapor_kontak` varchar(100) DEFAULT NULL,
+  `terlapor_jenis` varchar(50) NOT NULL,
+  `terlapor_nama` varchar(100) NOT NULL,
+  `terlapor_nim` varchar(20) DEFAULT NULL,
+  `terlapor_prodi_id` int unsigned DEFAULT NULL,
+  `kejadian_deskripsi` longtext NOT NULL,
+  `kejadian_tgl` date NOT NULL,
+  `kejadian_lokasi` varchar(255) NOT NULL,
+  `bukti_tipe` enum('file','sosmed') NOT NULL DEFAULT 'file',
+  `lampiran` varchar(255) DEFAULT NULL,
+  `bukti_sosmed_platform` enum('youtube','tiktok','instagram','facebook','linkedin') DEFAULT NULL,
+  `bukti_sosmed_url` text,
+  `is_starred` int DEFAULT '0',
+  `status_read` tinyint(1) NOT NULL DEFAULT '0',
+  `status_tindakan` varchar(20) NOT NULL DEFAULT 'pending',
+  `tindakan_keterangan` longtext,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `referensi_pengaduan` (`referensi_pengaduan`),
+  CONSTRAINT `fk_pengaduan_kategori` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_pengaduan_prodi` FOREIGN KEY (`terlapor_prodi_id`) REFERENCES `prodi` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 6. Tabel Aktivitas Pengaduan
+CREATE TABLE `pengaduan_aktivitas` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `pengaduan_id` int unsigned NOT NULL,
+  `user_id` int unsigned DEFAULT NULL,
+  `status_sebelumnya` varchar(20) DEFAULT NULL,
+  `status_sesudahnya` varchar(20) DEFAULT NULL,
+  `catatan` text,
+  `created_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_aktivitas_pengaduan` FOREIGN KEY (`pengaduan_id`) REFERENCES `pengaduan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 7. Tabel Logs Pengaduan (User Agent Tracking)
+CREATE TABLE `pengaduan_logs` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `pengaduan_id` int unsigned DEFAULT NULL,
+  `user_id` int unsigned DEFAULT NULL,
+  `status_sebelumnya` varchar(20) DEFAULT NULL,
+  `status_sesudahnya` varchar(20) DEFAULT NULL,
+  `catatan` text,
+  `agent_string` longtext NOT NULL,
+  `browser` varchar(50) DEFAULT NULL,
+  `browser_version` varchar(50) DEFAULT NULL,
+  `platform` varchar(50) DEFAULT NULL,
+  `is_mobile` tinyint(1) NOT NULL DEFAULT '0',
+  `ip_address` varchar(45) NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_logs_pengaduan` FOREIGN KEY (`pengaduan_id`) REFERENCES `pengaduan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- 8. Tabel Migrations (Internal CI4)
+CREATE TABLE `migrations` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `version` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `group` varchar(255) NOT NULL,
+  `namespace` varchar(255) NOT NULL,
+  `time` int NOT NULL,
+  `batch` int unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
