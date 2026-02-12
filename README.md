@@ -6,6 +6,9 @@
 
 **SIGAP** (Sistem Informasi Giat Pelaporan) adalah platform digital resmi yang dirancang untuk memfasilitasi civitas akademika FTIK UIN Sjech M. Djamil Djambek Bukittinggi dalam menyampaikan aspirasi, saran, dan pengaduan secara langsung kepada **Wakil Dekan III**.
 
+### 🔗 Live Demo
+Akses demo aplikasi di: [https://sigap.wuaze.com/](https://sigap.wuaze.com/)
+
 ## ✨ Fitur Utama
 
 ### 👤 Sisi Pelapor (Public/Student)
