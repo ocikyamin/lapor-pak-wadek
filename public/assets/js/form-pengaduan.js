@@ -309,6 +309,33 @@ $(function () {
         });
     });
 
+    // Mobile Menu Toggle Logic
+    const mobileMenuBtn = $('#mobile-menu-btn');
+    const mobileMenu = $('#mobile-menu');
+    const closeMobileMenu = $('#close-mobile-menu');
+
+    if (mobileMenuBtn.length && mobileMenu.length) {
+        mobileMenuBtn.on('click', function () {
+            mobileMenu.removeClass('translate-x-full');
+            $('body').css('overflow', 'hidden');
+        });
+    }
+
+    if (closeMobileMenu.length) {
+        closeMobileMenu.on('click', function () {
+            mobileMenu.addClass('translate-x-full');
+            $('body').css('overflow', '');
+        });
+    }
+
+    // Close on click outside
+    mobileMenu.on('click', function (e) {
+        if (e.target === this) {
+            mobileMenu.addClass('translate-x-full');
+            $('body').css('overflow', '');
+        }
+    });
+
     FileHandler.init();
     SosmedHandler.init();
 });

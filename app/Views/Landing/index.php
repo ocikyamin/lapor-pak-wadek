@@ -38,9 +38,10 @@
     <meta property="twitter:image" content="<?= base_url('logo/og-image.jpg') ?>" />
 
     <!-- Favicon & Theme Color -->
-    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('logo/ftik.png') ?>">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('logo/ftik.png') ?>">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url('logo/ftik.png') ?>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= base_url('favicon/apple-touch-icon.png') ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('favicon/favicon-32x32.png') ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url('favicon/favicon-16x16.png') ?>">
+    <link rel="manifest" href="<?= base_url('manifest.json') ?>">
     <meta name="theme-color" content="#0d968b">
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -102,6 +103,8 @@
                         href="#">Beranda</a>
                     <a class="text-sm font-medium text-emerald-50 hover:text-white transition-colors"
                         href="#about">Tentang</a>
+                    <a class="text-sm font-medium text-emerald-50 hover:text-white transition-colors"
+                        href="#how-it-works">Alur Laporan</a>
                     <a class="text-sm font-medium text-emerald-50 hover:text-white transition-colors"
                         href="#kontak">Kontak</a>
                 </div>
@@ -172,6 +175,20 @@
                                 class="material-icons-round text-white/50 group-hover:translate-x-1 transition-transform">chevron_right</span>
                         </a>
 
+                        <a href="#how-it-works"
+                            class="menu-item group flex items-center justify-between p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/10 transition-all"
+                            onclick="document.getElementById('mobile-menu').classList.remove('open')">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-white/10 shadow-sm flex items-center justify-center text-emerald-100 group-hover:text-white transition-colors">
+                                    <span class="material-icons-round">account_tree</span>
+                                </div>
+                                <span class="font-bold text-white">Alur Laporan</span>
+                            </div>
+                            <span
+                                class="material-icons-round text-white/50 group-hover:translate-x-1 transition-transform">chevron_right</span>
+                        </a>
+
                         <a href="#kontak"
                             class="menu-item group flex items-center justify-between p-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/10 transition-all"
                             onclick="document.getElementById('mobile-menu').classList.remove('open')">
@@ -188,13 +205,21 @@
                     </nav>
 
                     <!-- CTA -->
-                    <div class="menu-item mt-10">
+                    <div class="menu-item mt-10 flex flex-col gap-3">
                         <a class="w-full flex items-center justify-center px-6 py-4 text-base font-bold text-primary transition-all duration-300 bg-white border border-transparent rounded-2xl hover:bg-emerald-50 shadow-xl shadow-black/10"
                             href="<?= base_url('buat-laporan') ?>"
                             onclick="document.getElementById('mobile-menu').classList.remove('open')">
                             <span class="material-icons-round mr-2">campaign</span>
                             Lapor Sekarang
                         </a>
+                        <!-- PWA Install Button (Hidden by default, shown via JS if PWA is installable) -->
+                        <button
+                            class="pwa-install-btn hidden w-full flex items-center justify-center px-6 py-4 text-base font-bold text-white transition-all duration-300 bg-white/10 border border-white/20 rounded-2xl hover:bg-white/20 shadow-xl shadow-black/5 backdrop-blur-sm group"
+                            onclick="document.getElementById('mobile-menu').classList.remove('open')">
+                            <span
+                                class="material-icons-round mr-2 text-green-400 group-hover:rotate-12 transition-transform">install_mobile</span>
+                            <span class="install-text">Install Aplikasi</span>
+                        </button>
                     </div>
 
                     <!-- Footer info in menu -->
@@ -209,12 +234,22 @@
                                 <span class="material-icons-round text-xl">mail</span>
                             </a>
                         </div>
-                        <p class="text-xs text-emerald-200/60">© 2026 Lapor Pak WD3 FTIK UIN Bukittinggi</p>
+                        <p class="text-xs text-emerald-200/60">© <?= date('Y') ?> Lapor Pak WD3 FTIK UIN Bukittinggi</p>
                     </div>
                 </div>
             </div>
     </nav>
     <script src="<?= base_url('assets/js/landing.js') ?>"></script>
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('<?= base_url('sw.js') ?>')
+                    .then(reg => console.log('Service Worker registered', reg))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
 
     <section id="about" class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
         <div class="absolute inset-0 z-0 pointer-events-none">
@@ -243,17 +278,19 @@
                         Layanan pelaporan resmi bagi Sivitas Akademika FTIK UIN Bukittinggi maupun masyarakat umum.
                         Inovasi pimpinan yang menjamin transparansi serta keamanan data pelapor.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                    <div class="flex flex-col flex-wrap sm:flex-row gap-4 pt-4">
                         <a class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white transition-all duration-200 bg-primary border border-transparent rounded-xl hover:bg-primary-hover shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 hover:-translate-y-1"
                             href="<?= base_url('buat-laporan') ?>">
                             Buat Laporan
                             <span class="material-icons-round ml-2">arrow_forward</span>
                         </a>
-                        <a class="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-slate-700 dark:text-slate-200 transition-all duration-200 bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-primary dark:hover:text-primary"
-                            href="#how-it-works">
-                            <span class="material-icons-round mr-2 text-primary">play_circle_outline</span>
-                            Pelajari Alur
-                        </a>
+                        <!-- PWA Install Button (Hero) - Replaces 'Pelajari Alur' -->
+                        <button
+                            class="pwa-install-btn hidden inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white transition-all duration-200 bg-slate-900 dark:bg-slate-800/80 border border-slate-700/50 rounded-xl hover:bg-black dark:hover:bg-slate-700 shadow-lg hover:shadow-xl hover:-translate-y-1 group">
+                            <span
+                                class="material-icons-round mr-2 text-green-400 group-hover:rotate-12 transition-transform">install_mobile</span>
+                            <span class="install-text">Install Aplikasi</span>
+                        </button>
                     </div>
 
                 </div>
@@ -495,9 +532,10 @@
                     Buat Laporan Baru
                 </a>
             </div>
-            <p class="mt-6 text-sm text-white/70">
-                Butuh bantuan teknis? <a class="underline hover:text-white font-medium" href="#">Hubungi Admin</a>
-            </p>
+        </div>
+        <p class="mt-6 text-sm text-white/70">
+            Butuh bantuan teknis? <a class="underline hover:text-white font-medium" href="#">Hubungi Admin</a>
+        </p>
         </div>
     </section>
     <footer class="bg-slate-900 text-slate-300 py-16 border-t border-slate-800">

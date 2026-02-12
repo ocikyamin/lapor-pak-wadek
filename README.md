@@ -1,10 +1,12 @@
-# SIGAP - Lapor Pak Wadek III (FTIK UIN Bukittinggi)
+# Lapor Pak Wadek 3 (FTIK UIN Bukittinggi)
 
 [![Technology - CodeIgniter 4](https://img.shields.io/badge/Framework-CodeIgniter%204-EF4223?style=for-the-badge&logo=codeigniter&logoColor=white)](https://codeigniter.com/)
 [![Style - TailwindCSS](https://img.shields.io/badge/Styling-Tailwind%20CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Design - Glassmorphism](https://img.shields.io/badge/Design-Glassmorphism-0D9488?style=for-the-badge&logo=google-cloud&logoColor=white)](#)
+[![PWA - Ready](https://img.shields.io/badge/PWA-Ready-EF6C00?style=for-the-badge&logo=pwa&logoColor=white)](#)
 
-**SIGAP** (Sistem Informasi Giat Pelaporan) adalah platform digital resmi yang dirancang untuk memfasilitasi civitas akademika FTIK UIN Sjech M. Djamil Djambek Bukittinggi dalam menyampaikan aspirasi, saran, dan pengaduan secara langsung kepada **Wakil Dekan III**.
+
+**Lapor Pak Wadek 3** adalah platform digital resmi yang dirancang untuk memfasilitasi civitas akademika FTIK UIN Sjech M. Djamil Djambek Bukittinggi dalam menyampaikan aspirasi, saran, dan pengaduan secara langsung kepada **Wakil Dekan III**.
 
 ### 🔗 Live Demo
 Akses demo aplikasi di: [https://sigap.wuaze.com/](https://sigap.wuaze.com/)
@@ -15,6 +17,7 @@ Akses demo aplikasi di: [https://sigap.wuaze.com/](https://sigap.wuaze.com/)
 - **Pelaporan Anonim**: Menjamin keamanan identitas pelapor untuk isu-isu sensitif.
 - **Kode Referensi Unik**: Setiap laporan mendapatkan ID unik untuk pelacakan status tanpa perlu login.
 - **Modern UI/UX**: Desain premium dengan pendekatan *Glassmorphism* yang responsif dan atraktif.
+- **Progressive Web App (PWA)**: Dapat diinstal di perangkat Android, iOS, maupun Desktop (Chrome/Edge) tanpa melalui App Store.
 - **Notifikasi Interaktif**: Menggunakan library Notiflix untuk feedback yang elegan.
 
 ### 🔐 Sisi Admin (Control Panel)
@@ -32,6 +35,7 @@ Akses demo aplikasi di: [https://sigap.wuaze.com/](https://sigap.wuaze.com/)
 | **Database** | MySQL / MariaDB |
 | **Library JS** | jQuery, Chart.js, Notiflix |
 | **Icons** | Material Symbols Outlined, Material Icons |
+| **Mobile Tech** | Progressive Web App (PWA) |
 | **UI Concepts** | Glassmorphism, Micro-animations |
 
 ## 🚀 Instalasi & Setup
@@ -65,10 +69,9 @@ Akses demo aplikasi di: [https://sigap.wuaze.com/](https://sigap.wuaze.com/)
      database.default.DBDriver = MySQLi
      ```
 
-4. **Database Migration & Seeding** (Jika tersedia)
-   ```bash
-   php spark migrate
-   ```
+4. **Database Setup**
+   - Buat database baru di MySQL.
+   - **Penting**: File *Database Migration* dan *Seeder* tidak disertakan dalam repositori GitHub ini untuk alasan keamanan dan privasi data. Silakan buat struktur tabel secara manual atau hubungi pengembang untuk skema database.
 
 5. **Jalankan Aplikasi**
    ```bash
@@ -86,5 +89,9 @@ Akses demo aplikasi di: [https://sigap.wuaze.com/](https://sigap.wuaze.com/)
 - **Lead Developer**: **Abdul Yamin, S.Pd., M.Kom** ([@ocikyamin](https://github.com/ocikyamin))
 - **Project**: Lapor Pak Wadek 3 - FTIK UIN SMDD Bukittinggi
 
+## ⚖️ Lisensi & Penggunaan
+Aplikasi ini bersifat **Proprietary**. Siapapun yang ingin menggunakan, memodifikasi, atau mendistribusikan ulang kode program ini **WAJIB** mendapatkan izin tertulis dari Inisiator (**Dr. Supriadi, S.Ag., M.Pd**) dan Lead Developer (**Abdul Yamin, S.Pd., M.Kom**). 
+
+
 ---
-*© 2026 SIGAP FTIK UIN Sjech M. Djamil Djambek Bukittinggi. All rights reserved.*
+*© 2026 Lapor Pak Wadek 3 FTIK UIN Sjech M. Djamil Djambek Bukittinggi. All rights reserved.*

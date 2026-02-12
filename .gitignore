@@ -124,3 +124,9 @@ _modules/*
 
 /results/
 /phpunit*.xml
+
+#-------------------------
+# Database Privacy
+#-------------------------
+app/Database/Migrations/*
+app/Database/Seeds/*

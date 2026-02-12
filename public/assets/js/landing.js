@@ -2,10 +2,47 @@
  * Developer: Abdul Yamin, S.Pd., M.Kom
  * GitHub: https://github.com/ocikyamin
  */
+
+let deferredPrompt;
+
+// PWA Install Logic
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+
+    // Show the install buttons
+    const installBtns = document.querySelectorAll('.pwa-install-btn');
+    installBtns.forEach(btn => {
+        btn.classList.remove('hidden');
+        btn.addEventListener('click', () => {
+            // Show the prompt
+            deferredPrompt.prompt();
+            // Wait for the user to respond to the prompt
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the A2HS prompt');
+                } else {
+                    console.log('User dismissed the A2HS prompt');
+                }
+                deferredPrompt = null;
+                // Hide buttons again after the choice
+                installBtns.forEach(b => b.classList.add('hidden'));
+            });
+        });
+    });
+});
+
+window.addEventListener('appinstalled', (evt) => {
+    console.log('App was installed');
+    // Hide all install buttons if the app is already installed
+    document.querySelectorAll('.pwa-install-btn').forEach(b => b.classList.add('hidden'));
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('mobile-menu-btn');
     const menu = document.getElementById('mobile-menu');
-    const icon = btn.querySelector('.material-icons-round');
 
     // Mobile menu toggle
     if (btn && menu) {

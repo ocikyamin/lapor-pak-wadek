@@ -8,6 +8,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap"
         rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
@@ -50,26 +51,49 @@
         <div class="absolute -bottom-[10%] left-[20%] w-[50%] h-[50%] rounded-full bg-teal-500/5 blur-[150px]"></div>
     </div>
 
-    <!-- Header / Top Bar (Premium Gradient) -->
-    <div class="relative z-50 w-full pt-6 px-4 sm:px-6">
-        <div
-            class="max-w-4xl mx-auto flex justify-between items-center bg-gradient-to-r from-primary via-teal-600 to-primary backdrop-blur-md border border-teal-700/30 rounded-2xl px-6 py-4 shadow-[0_8px_30px_rgba(13,148,136,0.25)] hover:shadow-[0_12px_40px_rgba(13,148,136,0.35)] transition-all duration-300">
-            <div class="flex items-center gap-4">
-                <img src="<?= base_url('logo/ftik.png') ?>" alt="FTIK"
-                    class="w-16 h-16 object-contain drop-shadow-md hover:scale-110 transition-transform duration-300">
-                <div class="h-12 w-[2px] bg-white/30"></div>
-                <img src="<?= base_url('logo/logos.png') ?>" alt="SIGAP"
-                    class="h-14 object-contain drop-shadow-md hover:scale-105 transition-transform duration-300">
-            </div>
-            <a href="<?= base_url() ?>"
-                class="text-xs font-bold text-white/90 hover:text-white transition-all flex items-center gap-2 px-4 py-2 rounded-xl hover:bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/40">
-                <span class="material-symbols-outlined text-base">arrow_back</span>
-                Kembali
-            </a>
-        </div>
-    </div>
+    <!-- Navigation -->
+    <nav
+        class="fixed w-full z-50 transition-all duration-300 bg-primary shadow-lg shadow-primary/20 border-b border-primary-hover">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center relative z-50">
+                    <a href="<?= base_url() ?>">
+                        <div class="flex items-center gap-5">
+                            <img src="<?= base_url('logo/ftik.png') ?>" alt="FTIK"
+                                class="w-16 h-16 object-contain drop-shadow-lg hover:scale-110 transition-transform duration-300">
+                            <div class="h-12 w-[2px] bg-white/30"></div>
+                            <img src="<?= base_url('logo/logos.png') ?>" alt="SIGAP"
+                                class="h-14 object-contain drop-shadow-lg hover:scale-105 transition-transform duration-300">
+                        </div>
+                    </a>
+                </div>
 
-    <main class="relative z-10 flex-grow py-10 sm:py-16 px-4 sm:px-6">
+                <!-- Desktop Menu Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a class="text-sm font-medium text-emerald-50 hover:text-white transition-colors"
+                        href="<?= base_url() ?>">Beranda</a>
+                    <a class="text-sm font-medium text-emerald-50 hover:text-white transition-colors"
+                        href="<?= base_url() ?>#about">Tentang</a>
+                    <a class="text-sm font-medium text-emerald-50 hover:text-white transition-colors"
+                        href="<?= base_url() ?>#how-it-works">Alur Laporan</a>
+                    <a class="text-sm font-medium text-emerald-50 hover:text-white transition-colors"
+                        href="<?= base_url() ?>#kontak">Kontak</a>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex items-center gap-4">
+                    <a class="inline-flex items-center justify-center px-4 py-2 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-bold text-primary transition-all duration-200 bg-white border border-transparent rounded-full hover:bg-emerald-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white shadow-xl"
+                        href="<?= base_url() ?>">
+                        <span class="material-icons-round text-sm mr-1 sm:mr-2">arrow_back</span>
+                        Kembali
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relative z-10 flex-grow py-32 sm:py-40 px-4 sm:px-6">
         <div class="max-w-4xl mx-auto">
             <!-- Hero Title Area -->
             <div class="text-center space-y-6 mb-12 animate-fade-in-up">

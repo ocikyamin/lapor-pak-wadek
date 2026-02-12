@@ -60,27 +60,3 @@ $routes->group('admin', static function ($routes) {
 });
 
 
-
-// ============================================
-// PENGADUAN ROUTES
-// ============================================
-
-// $routes->group('admin/pengaduan/', static function ($routes) {
-//     // Get detail pengaduan
-//     $routes->get('/pengaduan/detail/(:num)', 'Pengaduan::detail/$1', ['as' => 'pengaduan.detail']);
-
-//     // Get list pengaduan
-//     $routes->get('/pengaduan/list', 'Pengaduan::list', ['as' => 'pengaduan.list']);
-
-//     // Get statistik
-//     $routes->get('/pengaduan/statistics', 'Pengaduan::statistics', ['as' => 'pengaduan.statistics']);
-
-//     // Download file bukti
-//     $routes->get('/pengaduan/download/(:any)', 'Pengaduan::downloadFile/$1', ['as' => 'pengaduan.download']);
-
-//     // Update status pengaduan
-//     $routes->post('/pengaduan/update-status/(:num)', 'Pengaduan::updateStatus/$1', ['as' => 'pengaduan.updateStatus']);
-
-// });
-
-
